@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: psql
       POSTGRES_DB: pizza
     ports:
-      - 5432:5432
+      - 5430:5430
 
   backend:
     build: src/backend
