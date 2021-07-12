@@ -56,17 +56,14 @@
               <div class="sheet__content diameter">
                 <label
                   class="diameter__input"
-                  :class="{
-                    ['diameter__input--small']: size.multiplier === 1,
-                    ['diameter__input--normal']: size.multiplier === 2,
-                    ['diameter__input--big']: size.multiplier === 3,
-                  }"
+                  :class="`diameter__input--${size.value}`"
                   v-for="size in sizes"
                   :key="size.id"
                 >
                   <input
                     type="radio"
                     name="diameter"
+                    v-model="diameter"
                     :value="size.value"
                     class="visually-hidden"
                   />
@@ -201,6 +198,7 @@ export default {
       doughList: pizza.dough.map((dough) => normalizeDough(dough)),
       dough: "light",
       sizes: pizza.sizes.map((size) => normalizeSize(size)),
+      diameter: "small",
       sauces: pizza.sauces.map((sauce) => normalizeSauce(sauce)),
       user,
     };
