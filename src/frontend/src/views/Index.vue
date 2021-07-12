@@ -30,7 +30,8 @@
 
               <div class="sheet__content dough">
                 <label
-                  class="dough__input dough__input--light"
+                  class="dough__input"
+                  :class="'dough__input--' + dough.value"
                   v-for="dough in dough"
                   :key="dough.id"
                 >
