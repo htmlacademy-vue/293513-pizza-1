@@ -31,19 +31,19 @@
               <div class="sheet__content dough">
                 <label
                   class="dough__input"
-                  :class="'dough__input--' + dough.value"
-                  v-for="dough in dough"
-                  :key="dough.id"
+                  :class="`dough__input--${doughItem.value}`"
+                  v-for="doughItem in doughList"
+                  :key="doughItem.id"
                 >
                   <input
                     type="radio"
-                    name="dought"
-                    :value="dough.value"
+                    name="dough"
+                    :value="doughItem.value"
                     class="visually-hidden"
-                    checked
+                    v-model="dough"
                   />
-                  <b>{{ dough.name }}</b>
-                  <span>{{ dough.description }}</span>
+                  <b>{{ doughItem.name }}</b>
+                  <span>{{ doughItem.description }}</span>
                 </label>
               </div>
             </div>
@@ -198,7 +198,8 @@ export default {
       ingredients: pizza.ingredients.map((ingredient) =>
         normalizeIngredient(ingredient)
       ),
-      dough: pizza.dough.map((dough) => normalizeDough(dough)),
+      doughList: pizza.dough.map((dough) => normalizeDough(dough)),
+      dough: "light",
       sizes: pizza.sizes.map((size) => normalizeSize(size)),
       sauces: pizza.sauces.map((sauce) => normalizeSauce(sauce)),
       user,
