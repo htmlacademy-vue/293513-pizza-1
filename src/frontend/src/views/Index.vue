@@ -85,16 +85,16 @@
 
                   <label
                     class="radio ingredients__input"
-                    v-for="sauce in sauces"
-                    :key="sauce.id"
+                    v-for="sauceItem in sauces"
+                    :key="sauceItem.id"
                   >
                     <input
                       type="radio"
                       name="sauce"
-                      :value="sauce.value"
-                      checked
+                      v-model="sauce"
+                      :value="sauceItem.value"
                     />
-                    <span>{{ sauce.name }}</span>
+                    <span>{{ sauceItem.name }}</span>
                   </label>
                 </div>
 
@@ -109,7 +109,7 @@
                     >
                       <span
                         class="filling"
-                        :class="'filling--' + ingredient.value"
+                        :class="`filling--${ingredient.value}`"
                         >{{ ingredient.name }}</span
                       >
                       <div class="counter counter--orange ingredients__counter">
@@ -200,6 +200,7 @@ export default {
       sizes: pizza.sizes.map((size) => normalizeSize(size)),
       diameter: "small",
       sauces: pizza.sauces.map((sauce) => normalizeSauce(sauce)),
+      sauce: "tomato",
       user,
     };
   },
