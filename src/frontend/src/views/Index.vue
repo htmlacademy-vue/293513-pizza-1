@@ -104,30 +104,12 @@
                         :class="`filling--${ingredient.value}`"
                         >{{ ingredient.name }}</span
                       >
-                      <div class="counter counter--orange ingredients__counter">
-                        <button
-                          type="button"
-                          class="
-                            counter__button
-                            counter__button--disabled
-                            counter__button--minus
-                          "
-                        >
-                          <span class="visually-hidden">Меньше</span>
-                        </button>
-                        <input
-                          type="text"
-                          name="counter"
-                          class="counter__input"
-                          value="0"
-                        />
-                        <button
-                          type="button"
-                          class="counter__button counter__button--plus"
-                        >
-                          <span class="visually-hidden">Больше</span>
-                        </button>
-                      </div>
+                      <item-counter
+                        class="ingredients__counter"
+                        v-model="ingredient.count"
+                        :min="0"
+                        :max="3"
+                      />
                     </li>
                   </ul>
                 </div>
@@ -173,6 +155,7 @@ import misc from "@/static/misc.json";
 import pizza from "@/static/pizza.json";
 import user from "@/static/user.json";
 import RadioButton from "@/common/components/RadioButton";
+import ItemCounter from "@/common/components/ItemCounter";
 
 import {
   normalizeDough,
@@ -185,9 +168,11 @@ export default {
   name: "IndexHome",
   components: {
     RadioButton,
+    ItemCounter,
   },
   data() {
     return {
+      user,
       misc,
       ingredients: pizza.ingredients.map((ingredient) =>
         normalizeIngredient(ingredient)
@@ -198,7 +183,6 @@ export default {
       diameter: "small",
       sauces: pizza.sauces.map((sauce) => normalizeSauce(sauce)),
       sauce: "tomato",
-      user,
     };
   },
   methods: {
