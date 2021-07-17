@@ -99,11 +99,10 @@
                       v-for="ingredient in ingredients"
                       :key="ingredient.id"
                     >
-                      <span
-                        class="filling"
-                        :class="`filling--${ingredient.value}`"
-                        >{{ ingredient.name }}</span
-                      >
+                      <selector-item :value="ingredient.value">
+                        {{ ingredient.name }}
+                      </selector-item>
+
                       <item-counter
                         class="ingredients__counter"
                         v-model="ingredient.count"
@@ -156,6 +155,7 @@ import pizza from "@/static/pizza.json";
 import user from "@/static/user.json";
 import RadioButton from "@/common/components/RadioButton";
 import ItemCounter from "@/common/components/ItemCounter";
+import SelectorItem from "@/common/components/SelectorItem";
 
 import {
   normalizeDough,
@@ -169,6 +169,7 @@ export default {
   components: {
     RadioButton,
     ItemCounter,
+    SelectorItem,
   },
   data() {
     return {
