@@ -36,54 +36,12 @@
             @change="setSize"
           />
 
-          <div class="content__ingredients">
-            <div class="sheet">
-              <h2 class="title title--small sheet__title">
-                Выберите ингредиенты
-              </h2>
-
-              <div class="sheet__content ingredients">
-                <div class="ingredients__sauce">
-                  <p>Основной соус:</p>
-
-                  <radio-button
-                    class="radio ingredients__input"
-                    name="sauce"
-                    v-for="sauceItem in sauces"
-                    :key="sauceItem.id"
-                    :value="sauceItem.value"
-                    :checked="sauceItem.value === sauce"
-                    @change="setSauces"
-                  >
-                    <span>{{ sauceItem.name }}</span>
-                  </radio-button>
-                </div>
-
-                <div class="ingredients__filling">
-                  <p>Начинка:</p>
-
-                  <ul class="ingredients__list">
-                    <li
-                      class="ingredients__item"
-                      v-for="ingredient in ingredients"
-                      :key="ingredient.id"
-                    >
-                      <selector-item :value="ingredient.value">
-                        {{ ingredient.name }}
-                      </selector-item>
-
-                      <item-counter
-                        class="ingredients__counter"
-                        v-model="ingredient.count"
-                        :min="0"
-                        :max="3"
-                      />
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          <builder-ingredients-selector
+            :sauces="sauces"
+            :value-sauce="sauce"
+            :ingredients="ingredients"
+            @changeSauce="setSauces"
+          />
 
           <div class="content__pizza">
             <label class="input">
@@ -124,9 +82,7 @@ import pizza from "@/static/pizza.json";
 import user from "@/static/user.json";
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
-import RadioButton from "@/common/components/RadioButton";
-import ItemCounter from "@/common/components/ItemCounter";
-import SelectorItem from "@/common/components/SelectorItem";
+import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
 
 import {
   normalizeDough,
@@ -138,11 +94,9 @@ import {
 export default {
   name: "IndexHome",
   components: {
+    BuilderIngredientsSelector,
     BuilderDoughSelector,
     BuilderSizeSelector,
-    RadioButton,
-    ItemCounter,
-    SelectorItem,
   },
   data() {
     return {
