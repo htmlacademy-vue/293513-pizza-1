@@ -30,26 +30,11 @@
             @change="setDough"
           />
 
-          <div class="content__diameter">
-            <div class="sheet">
-              <h2 class="title title--small sheet__title">Выберите размер</h2>
-
-              <div class="sheet__content diameter">
-                <radio-button
-                  class="diameter__input"
-                  name="diameter"
-                  :class="`diameter__input--${size.value}`"
-                  v-for="size in sizes"
-                  :key="size.id"
-                  :value="size.value"
-                  :checked="size.value === diameter"
-                  @change="setDiameter"
-                >
-                  <span>{{ size.name }}</span>
-                </radio-button>
-              </div>
-            </div>
-          </div>
+          <builder-size-selector
+            :sizes="sizes"
+            :value="size"
+            @change="setSize"
+          />
 
           <div class="content__ingredients">
             <div class="sheet">
@@ -138,6 +123,7 @@ import misc from "@/static/misc.json";
 import pizza from "@/static/pizza.json";
 import user from "@/static/user.json";
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
+import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
 import RadioButton from "@/common/components/RadioButton";
 import ItemCounter from "@/common/components/ItemCounter";
 import SelectorItem from "@/common/components/SelectorItem";
@@ -152,10 +138,11 @@ import {
 export default {
   name: "IndexHome",
   components: {
+    BuilderDoughSelector,
+    BuilderSizeSelector,
     RadioButton,
     ItemCounter,
     SelectorItem,
-    BuilderDoughSelector,
   },
   data() {
     return {
@@ -167,7 +154,7 @@ export default {
       doughList: pizza.dough.map((dough) => normalizeDough(dough)),
       dough: "light",
       sizes: pizza.sizes.map((size) => normalizeSize(size)),
-      diameter: "small",
+      size: "small",
       sauces: pizza.sauces.map((sauce) => normalizeSauce(sauce)),
       sauce: "tomato",
     };
@@ -176,8 +163,8 @@ export default {
     setDough(value) {
       this.dough = value;
     },
-    setDiameter(value) {
-      this.diameter = value;
+    setSize(value) {
+      this.size = value;
     },
     setSauces(value) {
       this.sauce = value;
