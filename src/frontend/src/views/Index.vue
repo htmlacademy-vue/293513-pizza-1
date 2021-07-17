@@ -24,27 +24,11 @@
         <div class="content__wrapper">
           <h1 class="title title--big">Конструктор пиццы</h1>
 
-          <div class="content__dough">
-            <div class="sheet">
-              <h2 class="title title--small sheet__title">Выберите тесто</h2>
-
-              <div class="sheet__content dough">
-                <radio-button
-                  class="dough__input"
-                  name="dough"
-                  v-for="doughItem in doughList"
-                  :key="doughItem.id"
-                  :value="doughItem.value"
-                  :checked="doughItem.value === dough"
-                  @change="setDough"
-                  :class="`dough__input--${doughItem.value}`"
-                >
-                  <b>{{ doughItem.name }}</b>
-                  <span>{{ doughItem.description }}</span>
-                </radio-button>
-              </div>
-            </div>
-          </div>
+          <builder-dough-selector
+            :dough-list="doughList"
+            :value="dough"
+            @change="setDough"
+          />
 
           <div class="content__diameter">
             <div class="sheet">
@@ -153,6 +137,7 @@
 import misc from "@/static/misc.json";
 import pizza from "@/static/pizza.json";
 import user from "@/static/user.json";
+import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import RadioButton from "@/common/components/RadioButton";
 import ItemCounter from "@/common/components/ItemCounter";
 import SelectorItem from "@/common/components/SelectorItem";
@@ -170,6 +155,7 @@ export default {
     RadioButton,
     ItemCounter,
     SelectorItem,
+    BuilderDoughSelector,
   },
   data() {
     return {
