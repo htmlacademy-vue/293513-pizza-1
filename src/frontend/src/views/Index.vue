@@ -29,22 +29,19 @@
               <h2 class="title title--small sheet__title">Выберите тесто</h2>
 
               <div class="sheet__content dough">
-                <label
+                <radio-button
                   class="dough__input"
-                  :class="`dough__input--${doughItem.value}`"
+                  name="dough"
                   v-for="doughItem in doughList"
                   :key="doughItem.id"
+                  :value="doughItem.value"
+                  :checked="doughItem.value === dough"
+                  @change="setDough"
+                  :class="`dough__input--${doughItem.value}`"
                 >
-                  <input
-                    type="radio"
-                    name="dough"
-                    :value="doughItem.value"
-                    class="visually-hidden"
-                    v-model="dough"
-                  />
                   <b>{{ doughItem.name }}</b>
                   <span>{{ doughItem.description }}</span>
-                </label>
+                </radio-button>
               </div>
             </div>
           </div>
@@ -54,21 +51,18 @@
               <h2 class="title title--small sheet__title">Выберите размер</h2>
 
               <div class="sheet__content diameter">
-                <label
+                <radio-button
                   class="diameter__input"
+                  name="diameter"
                   :class="`diameter__input--${size.value}`"
                   v-for="size in sizes"
                   :key="size.id"
+                  :value="size.value"
+                  :checked="size.value === diameter"
+                  @change="setDiameter"
                 >
-                  <input
-                    type="radio"
-                    name="diameter"
-                    v-model="diameter"
-                    :value="size.value"
-                    class="visually-hidden"
-                  />
                   <span>{{ size.name }}</span>
-                </label>
+                </radio-button>
               </div>
             </div>
           </div>
@@ -83,19 +77,17 @@
                 <div class="ingredients__sauce">
                   <p>Основной соус:</p>
 
-                  <label
+                  <radio-button
                     class="radio ingredients__input"
+                    name="sauce"
                     v-for="sauceItem in sauces"
                     :key="sauceItem.id"
+                    :value="sauceItem.value"
+                    :checked="sauceItem.value === sauce"
+                    @change="setSauces"
                   >
-                    <input
-                      type="radio"
-                      name="sauce"
-                      v-model="sauce"
-                      :value="sauceItem.value"
-                    />
                     <span>{{ sauceItem.name }}</span>
-                  </label>
+                  </radio-button>
                 </div>
 
                 <div class="ingredients__filling">
@@ -180,6 +172,8 @@
 import misc from "@/static/misc.json";
 import pizza from "@/static/pizza.json";
 import user from "@/static/user.json";
+import RadioButton from "@/common/components/RadioButton";
+
 import {
   normalizeDough,
   normalizeIngredient,
@@ -189,6 +183,9 @@ import {
 
 export default {
   name: "IndexHome",
+  components: {
+    RadioButton,
+  },
   data() {
     return {
       misc,
@@ -203,6 +200,17 @@ export default {
       sauce: "tomato",
       user,
     };
+  },
+  methods: {
+    setDough(value) {
+      this.dough = value;
+    },
+    setDiameter(value) {
+      this.diameter = value;
+    },
+    setSauces(value) {
+      this.sauce = value;
+    },
   },
 };
 </script>
