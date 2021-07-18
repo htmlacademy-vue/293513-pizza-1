@@ -53,6 +53,7 @@ import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
 
 export default {
+  name: "BuilderIngredientsSelector",
   components: {
     RadioButton,
     SelectorItem,

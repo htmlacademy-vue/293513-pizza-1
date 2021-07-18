@@ -43,33 +43,7 @@
             @changeSauce="setSauces"
           />
 
-          <div class="content__pizza">
-            <label class="input">
-              <span class="visually-hidden">Название пиццы</span>
-              <input
-                type="text"
-                name="pizza_name"
-                placeholder="Введите название пиццы"
-              />
-            </label>
-
-            <div class="content__constructor">
-              <div class="pizza pizza--foundation--big-tomato">
-                <div class="pizza__wrapper">
-                  <div class="pizza__filling pizza__filling--ananas"></div>
-                  <div class="pizza__filling pizza__filling--bacon"></div>
-                  <div class="pizza__filling pizza__filling--cheddar"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="content__result">
-              <p>Итого: 0 ₽</p>
-              <button type="button" class="button button--disabled" disabled>
-                Готовьте!
-              </button>
-            </div>
-          </div>
+          <builder-pizza-view />
         </div>
       </form>
     </main>
@@ -83,7 +57,7 @@ import user from "@/static/user.json";
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
 import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
-
+import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
 import {
   normalizeDough,
   normalizeIngredient,
@@ -94,6 +68,7 @@ import {
 export default {
   name: "IndexHome",
   components: {
+    BuilderPizzaView,
     BuilderIngredientsSelector,
     BuilderDoughSelector,
     BuilderSizeSelector,
