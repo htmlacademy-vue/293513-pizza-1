@@ -1,0 +1,97 @@
+<template>
+  <div class="content__pizza">
+    <label class="input">
+      <span class="visually-hidden">Название пиццы</span>
+      <input
+        type="text"
+        name="pizza_name"
+        placeholder="Введите название пиццы"
+        :value="name"
+        @input="$emit('input', $event.target.value.trim())"
+      />
+    </label>
+
+    <div class="content__constructor">
+      <app-drop
+        @drop="
+          $emit('drop', {
+            value: $event.value,
+            count: $event.count + 1,
+          })
+        "
+      >
+        <div class="pizza" :class="`pizza--foundation--${size}-${sauce}`">
+          <div class="pizza__wrapper">
+            <template v-for="ingredient in checkedIngredients">
+              <div
+                :key="ingredient.id"
+                class="pizza__filling"
+                :class="`pizza__filling--${ingredient.value}`"
+              />
+
+              <div
+                v-if="ingredient.count > 1"
+                :key="`${ingredient.id}-${Math.random()}`"
+                :class="`pizza__filling pizza__filling--${ingredient.value} pizza__filling--second`"
+              />
+
+              <div
+                v-if="ingredient.count > 2"
+                :key="`${ingredient.id}-${Math.random()}`"
+                :class="`pizza__filling pizza__filling--${ingredient.value} pizza__filling--third`"
+              />
+            </template>
+          </div>
+        </div>
+      </app-drop>
+    </div>
+
+    <builder-price-counter :total="total" :disabled="disabled" />
+  </div>
+</template>
+
+<script>
+import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
+import AppDrop from "@/common/components/AppDrop";
+export default {
+  name: "BuilderPizzaView",
+  components: { AppDrop, BuilderPriceCounter },
+  props: {
+    doughSize: {
+      type: String,
+      required: true,
+      validator: (value) => ["light", "large"].includes(value),
+    },
+    sauce: {
+      type: String,
+      required: true,
+      validator: (value) => ["tomato", "creamy"].includes(value),
+    },
+    checkedIngredients: {
+      type: Array,
+      defaults: [],
+    },
+    total: {
+      type: Number,
+      default: 0,
+    },
+    name: {
+      type: String,
+      default: "",
+    },
+    disabled: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  computed: {
+    size() {
+      if (this.doughSize === "light") {
+        return "small";
+      }
+
+      return "big";
+    },
+  },
+};
+</script>

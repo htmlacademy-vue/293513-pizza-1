@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <IndexHome />
+    <index-home />
   </div>
 </template>
 
