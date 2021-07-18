@@ -40,9 +40,12 @@
 
               <item-counter
                 class="ingredients__counter"
-                v-model="ingredient.count"
+                :value="ingredient.count"
                 :min="0"
                 :max="3"
+                @input="
+                  $emit('input', { value: ingredient.value, count: $event })
+                "
               />
             </li>
           </ul>

@@ -20,18 +20,25 @@
       >
         <div class="pizza" :class="`pizza--foundation--${size}-${sauce}`">
           <div class="pizza__wrapper">
-            <div
-              v-for="ingredient in checkedIngredients"
-              :key="ingredient.id"
-              class="pizza__filling"
-              :class="[
-                `pizza__filling--${ingredient.value}`,
-                {
-                  'pizza__filling--second': ingredient.count === 2,
-                  'pizza__filling--third': ingredient.count === 3,
-                },
-              ]"
-            />
+            <template v-for="ingredient in checkedIngredients">
+              <div
+                :key="ingredient.id"
+                class="pizza__filling"
+                :class="`pizza__filling--${ingredient.value}`"
+              />
+
+              <div
+                v-if="ingredient.count > 1"
+                :key="`${ingredient.id}-${Math.random()}`"
+                :class="`pizza__filling pizza__filling--${ingredient.value} pizza__filling--second`"
+              />
+
+              <div
+                v-if="ingredient.count > 2"
+                :key="`${ingredient.id}-${Math.random()}`"
+                :class="`pizza__filling pizza__filling--${ingredient.value} pizza__filling--third`"
+              />
+            </template>
           </div>
         </div>
       </app-drop>

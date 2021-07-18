@@ -22,6 +22,7 @@
             :value-sauce="sauce"
             :ingredients="ingredients"
             @changeSauce="setSauces"
+            @input="changeCountIngredient"
           />
 
           <builder-pizza-view
