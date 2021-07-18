@@ -29,6 +29,10 @@
             :dough-size="dough"
             :sauce="sauce"
             :checked-ingredients="checkedIngredients"
+            :total="totalSum"
+            :name="namePizza"
+            :disabled="isDisableCook"
+            @input="setNamePizza"
             @drop="changeCountIngredient"
           />
         </div>
@@ -75,6 +79,7 @@ export default {
       size: "small",
       sauces: pizza.sauces.map((sauce) => normalizeSauce(sauce)),
       sauce: "tomato",
+      namePizza: "",
     };
   },
   methods: {
@@ -91,10 +96,27 @@ export default {
       const ingredient = this.ingredients.find((it) => it.value === value);
       ingredient.count = count;
     },
+    setNamePizza(value) {
+      this.namePizza = value;
+    },
   },
   computed: {
     checkedIngredients() {
       return this.ingredients.filter((it) => it.count > 0);
+    },
+    totalSum() {
+      const dough = this.doughList.find((it) => it.value === this.dough);
+      const sauce = this.sauces.find((it) => it.value === this.sauce);
+      const size = this.sizes.find((it) => it.value === this.size);
+      const sumIngredients = this.checkedIngredients.reduce((acc, it) => {
+        acc += it.count * it.price;
+        return acc;
+      }, 0);
+
+      return (dough.price + sauce.price + sumIngredients) * size.multiplier;
+    },
+    isDisableCook() {
+      return !(this.checkedIngredients.length && this.namePizza);
     },
   },
 };

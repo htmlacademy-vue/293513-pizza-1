@@ -6,6 +6,8 @@
         type="text"
         name="pizza_name"
         placeholder="Введите название пиццы"
+        :value="name"
+        @input="$emit('input', $event.target.value.trim())"
       />
     </label>
 
@@ -44,7 +46,7 @@
       </app-drop>
     </div>
 
-    <builder-price-counter />
+    <builder-price-counter :total="total" :disabled="disabled" />
   </div>
 </template>
 
@@ -68,6 +70,18 @@ export default {
     checkedIngredients: {
       type: Array,
       defaults: [],
+    },
+    total: {
+      type: Number,
+      default: 0,
+    },
+    name: {
+      type: String,
+      default: "",
+    },
+    disabled: {
+      type: Boolean,
+      default: true,
     },
   },
   computed: {
