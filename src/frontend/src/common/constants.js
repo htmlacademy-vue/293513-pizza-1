@@ -19,3 +19,6 @@ export const SAUCES_TYPE = [
     value: "creamy",
   },
 ];
+
+export const MOVE = "move";
+export const DATA_TRANSFER_PAYLOAD = "payload";

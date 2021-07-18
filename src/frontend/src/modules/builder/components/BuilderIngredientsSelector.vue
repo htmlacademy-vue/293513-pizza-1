@@ -29,9 +29,14 @@
               v-for="ingredient in ingredients"
               :key="ingredient.id"
             >
-              <selector-item :value="ingredient.value">
-                {{ ingredient.name }}
-              </selector-item>
+              <app-drag
+                :draggable="ingredient.count < 3"
+                :transfer-data="ingredient"
+              >
+                <selector-item :value="ingredient.value">
+                  {{ ingredient.name }}
+                </selector-item>
+              </app-drag>
 
               <item-counter
                 class="ingredients__counter"
@@ -51,10 +56,12 @@
 import RadioButton from "@/common/components/RadioButton";
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
+import AppDrag from "@/common/components/AppDrag";
 
 export default {
   name: "BuilderIngredientsSelector",
   components: {
+    AppDrag,
     RadioButton,
     SelectorItem,
     ItemCounter,

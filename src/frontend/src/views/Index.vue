@@ -28,6 +28,7 @@
             :dough-size="dough"
             :sauce="sauce"
             :checked-ingredients="checkedIngredients"
+            @drop="changeCountIngredient"
           />
         </div>
       </form>
@@ -84,6 +85,10 @@ export default {
     },
     setSauces(value) {
       this.sauce = value;
+    },
+    changeCountIngredient({ value, count }) {
+      const ingredient = this.ingredients.find((it) => it.value === value);
+      ingredient.count = count;
     },
   },
   computed: {

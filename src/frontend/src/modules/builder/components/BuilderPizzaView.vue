@@ -10,22 +10,31 @@
     </label>
 
     <div class="content__constructor">
-      <div class="pizza" :class="`pizza--foundation--${size}-${sauce}`">
-        <div class="pizza__wrapper">
-          <div
-            v-for="ingredient in checkedIngredients"
-            :key="ingredient.id"
-            class="pizza__filling"
-            :class="[
-              `pizza__filling--${ingredient.value}`,
-              {
-                'pizza__filling--second': ingredient.count === 2,
-                'pizza__filling--third': ingredient.count === 3,
-              },
-            ]"
-          />
+      <app-drop
+        @drop="
+          $emit('drop', {
+            value: $event.value,
+            count: $event.count + 1,
+          })
+        "
+      >
+        <div class="pizza" :class="`pizza--foundation--${size}-${sauce}`">
+          <div class="pizza__wrapper">
+            <div
+              v-for="ingredient in checkedIngredients"
+              :key="ingredient.id"
+              class="pizza__filling"
+              :class="[
+                `pizza__filling--${ingredient.value}`,
+                {
+                  'pizza__filling--second': ingredient.count === 2,
+                  'pizza__filling--third': ingredient.count === 3,
+                },
+              ]"
+            />
+          </div>
         </div>
-      </div>
+      </app-drop>
     </div>
 
     <builder-price-counter />
@@ -34,9 +43,10 @@
 
 <script>
 import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
+import AppDrop from "@/common/components/AppDrop";
 export default {
   name: "BuilderPizzaView",
-  components: { BuilderPriceCounter },
+  components: { AppDrop, BuilderPriceCounter },
   props: {
     doughSize: {
       type: String,
