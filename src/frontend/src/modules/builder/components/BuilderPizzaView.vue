@@ -19,17 +19,14 @@
       </div>
     </div>
 
-    <div class="content__result">
-      <p>Итого: 0 ₽</p>
-      <button type="button" class="button button--disabled" disabled>
-        Готовьте!
-      </button>
-    </div>
+    <builder-price-counter />
   </div>
 </template>
 
 <script>
+import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
 export default {
   name: "BuilderPizzaView",
+  components: { BuilderPriceCounter },
 };
 </script>
