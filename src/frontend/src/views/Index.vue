@@ -1,24 +1,5 @@
 <template>
-  <div>
-    <header class="header">
-      <div class="header__logo">
-        <a href="/" class="logo">
-          <img
-            src="@/assets/img/logo.svg"
-            alt="V!U!E! Pizza logo"
-            width="90"
-            height="40"
-          />
-        </a>
-      </div>
-      <div class="header__cart">
-        <a href="/">0 ₽</a>
-      </div>
-      <div class="header__user">
-        <a href="#" class="header__login"><span>Войти</span></a>
-      </div>
-    </header>
-
+  <app-layout>
     <main class="content">
       <form action="#" method="post">
         <div class="content__wrapper">
@@ -47,13 +28,14 @@
         </div>
       </form>
     </main>
-  </div>
+  </app-layout>
 </template>
 
 <script>
 import misc from "@/static/misc.json";
 import pizza from "@/static/pizza.json";
 import user from "@/static/user.json";
+import AppLayout from "@/layouts/AppLayout";
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
 import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
@@ -68,6 +50,7 @@ import {
 export default {
   name: "IndexHome",
   components: {
+    AppLayout,
     BuilderPizzaView,
     BuilderIngredientsSelector,
     BuilderDoughSelector,
