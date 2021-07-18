@@ -10,11 +10,20 @@
     </label>
 
     <div class="content__constructor">
-      <div class="pizza pizza--foundation--big-tomato">
+      <div class="pizza" :class="`pizza--foundation--${size}-${sauce}`">
         <div class="pizza__wrapper">
-          <div class="pizza__filling pizza__filling--ananas"></div>
-          <div class="pizza__filling pizza__filling--bacon"></div>
-          <div class="pizza__filling pizza__filling--cheddar"></div>
+          <div
+            v-for="ingredient in checkedIngredients"
+            :key="ingredient.id"
+            class="pizza__filling"
+            :class="[
+              `pizza__filling--${ingredient.value}`,
+              {
+                'pizza__filling--second': ingredient.count === 2,
+                'pizza__filling--third': ingredient.count === 3,
+              },
+            ]"
+          />
         </div>
       </div>
     </div>
@@ -28,5 +37,30 @@ import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounte
 export default {
   name: "BuilderPizzaView",
   components: { BuilderPriceCounter },
+  props: {
+    doughSize: {
+      type: String,
+      required: true,
+      validator: (value) => ["light", "large"].includes(value),
+    },
+    sauce: {
+      type: String,
+      required: true,
+      validator: (value) => ["tomato", "creamy"].includes(value),
+    },
+    checkedIngredients: {
+      type: Array,
+      defaults: [],
+    },
+  },
+  computed: {
+    size() {
+      if (this.doughSize === "light") {
+        return "small";
+      }
+
+      return "big";
+    },
+  },
 };
 </script>

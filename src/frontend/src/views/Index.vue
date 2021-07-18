@@ -24,7 +24,11 @@
             @changeSauce="setSauces"
           />
 
-          <builder-pizza-view />
+          <builder-pizza-view
+            :dough-size="dough"
+            :sauce="sauce"
+            :checked-ingredients="checkedIngredients"
+          />
         </div>
       </form>
     </main>
@@ -80,6 +84,11 @@ export default {
     },
     setSauces(value) {
       this.sauce = value;
+    },
+  },
+  computed: {
+    checkedIngredients() {
+      return this.ingredients.filter((it) => it.count > 0);
     },
   },
 };
