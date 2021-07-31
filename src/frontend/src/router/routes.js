@@ -13,11 +13,17 @@ export default [
     path: "/profile",
     name: "Profile",
     component: () => import("@/views/Profile"),
+    meta: {
+      layout: "AppLayoutWithSidebar",
+    },
   },
   {
     path: "/orders",
     name: "Orders",
     component: () => import("@/views/Orders"),
+    meta: {
+      layout: "AppLayoutWithSidebar",
+    },
   },
   {
     path: "/cart",
