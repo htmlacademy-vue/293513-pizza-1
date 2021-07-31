@@ -21,9 +21,7 @@
         </router-link>
       </div>
 
-      <div class="layout__content">
-        <slot />
-      </div>
+      <slot />
     </main>
   </div>
 </template>

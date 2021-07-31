@@ -1,36 +1,38 @@
 <template>
-  <form action="#" method="post">
-    <div class="content__wrapper">
-      <h1 class="title title--big">Конструктор пиццы</h1>
+  <main class="content">
+    <form action="#" method="post">
+      <div class="content__wrapper">
+        <h1 class="title title--big">Конструктор пиццы</h1>
 
-      <builder-dough-selector
-        :dough-list="doughList"
-        :value="dough"
-        @change="setDough"
-      />
+        <builder-dough-selector
+          :dough-list="doughList"
+          :value="dough"
+          @change="setDough"
+        />
 
-      <builder-size-selector :sizes="sizes" :value="size" @change="setSize" />
+        <builder-size-selector :sizes="sizes" :value="size" @change="setSize" />
 
-      <builder-ingredients-selector
-        :sauces="sauces"
-        :value-sauce="sauce"
-        :ingredients="ingredients"
-        @changeSauce="setSauces"
-        @input="changeCountIngredient"
-      />
+        <builder-ingredients-selector
+          :sauces="sauces"
+          :value-sauce="sauce"
+          :ingredients="ingredients"
+          @changeSauce="setSauces"
+          @input="changeCountIngredient"
+        />
 
-      <builder-pizza-view
-        :dough-size="dough"
-        :sauce="sauce"
-        :checked-ingredients="checkedIngredients"
-        :total="totalSum"
-        :name="namePizza"
-        :disabled="isDisableCook"
-        @input="setNamePizza"
-        @drop="changeCountIngredient"
-      />
-    </div>
-  </form>
+        <builder-pizza-view
+          :dough-size="dough"
+          :sauce="sauce"
+          :checked-ingredients="checkedIngredients"
+          :total="totalSum"
+          :name="namePizza"
+          :disabled="isDisableCook"
+          @input="setNamePizza"
+          @drop="changeCountIngredient"
+        />
+      </div>
+    </form>
+  </main>
 </template>
 
 <script>

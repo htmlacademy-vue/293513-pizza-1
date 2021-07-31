@@ -2,9 +2,7 @@
   <div>
     <app-header />
 
-    <main class="content">
-      <slot />
-    </main>
+    <slot />
   </div>
 </template>
 
