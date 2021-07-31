@@ -1,51 +1,44 @@
 <template>
-  <app-layout>
-    <main class="content">
-      <form action="#" method="post">
-        <div class="content__wrapper">
-          <h1 class="title title--big">Конструктор пиццы</h1>
+  <main class="content">
+    <form action="#" method="post">
+      <div class="content__wrapper">
+        <h1 class="title title--big">Конструктор пиццы</h1>
 
-          <builder-dough-selector
-            :dough-list="doughList"
-            :value="dough"
-            @change="setDough"
-          />
+        <builder-dough-selector
+          :dough-list="doughList"
+          :value="dough"
+          @change="setDough"
+        />
 
-          <builder-size-selector
-            :sizes="sizes"
-            :value="size"
-            @change="setSize"
-          />
+        <builder-size-selector :sizes="sizes" :value="size" @change="setSize" />
 
-          <builder-ingredients-selector
-            :sauces="sauces"
-            :value-sauce="sauce"
-            :ingredients="ingredients"
-            @changeSauce="setSauces"
-            @input="changeCountIngredient"
-          />
+        <builder-ingredients-selector
+          :sauces="sauces"
+          :value-sauce="sauce"
+          :ingredients="ingredients"
+          @changeSauce="setSauces"
+          @input="changeCountIngredient"
+        />
 
-          <builder-pizza-view
-            :dough-size="dough"
-            :sauce="sauce"
-            :checked-ingredients="checkedIngredients"
-            :total="totalSum"
-            :name="namePizza"
-            :disabled="isDisableCook"
-            @input="setNamePizza"
-            @drop="changeCountIngredient"
-          />
-        </div>
-      </form>
-    </main>
-  </app-layout>
+        <builder-pizza-view
+          :dough-size="dough"
+          :sauce="sauce"
+          :checked-ingredients="checkedIngredients"
+          :total="totalSum"
+          :name="namePizza"
+          :disabled="isDisableCook"
+          @input="setNamePizza"
+          @drop="changeCountIngredient"
+        />
+      </div>
+    </form>
+  </main>
 </template>
 
 <script>
 import misc from "@/static/misc.json";
 import pizza from "@/static/pizza.json";
 import user from "@/static/user.json";
-import AppLayout from "@/layouts/AppLayout";
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
 import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
@@ -60,7 +53,6 @@ import {
 export default {
   name: "IndexHome",
   components: {
-    AppLayout,
     BuilderPizzaView,
     BuilderIngredientsSelector,
     BuilderDoughSelector,
