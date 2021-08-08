@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="layout-wrapper">
     <app-header />
 
     <slot />
@@ -13,3 +13,11 @@ export default {
   components: { AppHeader },
 };
 </script>
+
+<style scoped>
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+</style>

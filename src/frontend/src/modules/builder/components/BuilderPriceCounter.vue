@@ -6,6 +6,7 @@
       class="button"
       :class="{ 'button--disabled': !disabled }"
       :disabled="disabled"
+      @click="addToCart"
     >
       Готовьте!
     </button>
@@ -13,7 +14,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
+import { ADD_TO_CART } from "@/store/mutations-types";
 
 export default {
   name: "BuilderPriceCounter",
@@ -21,6 +23,19 @@ export default {
     ...mapGetters("Builder", {
       total: "totalSum",
       disabled: "isDisableCook",
+      ingredients: "selectedIngredients",
+    }),
+
+    ...mapState("Builder", {
+      name: "namePizza",
+      dough: "dough",
+      size: "size",
+      sauce: "sauce",
+    }),
+  },
+  methods: {
+    ...mapActions("Cart", {
+      addToCart: ADD_TO_CART,
     }),
   },
 };

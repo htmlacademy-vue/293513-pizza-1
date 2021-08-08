@@ -7,27 +7,30 @@ import {
 } from "@/common/helpers";
 import {
   CHANGE_COUNT_INGREDIENT,
+  RESET_BUILDER,
   SET_DOUGH,
   SET_NAME_PIZZA,
   SET_SAUCE,
   SET_SIZE,
 } from "@/store/mutations-types";
 
+const defaultState = () => ({
+  ingredients: pizza.ingredients.map((ingredient) =>
+    normalizeIngredient(ingredient)
+  ),
+  doughList: pizza.dough.map((dough) => normalizeDough(dough)),
+  sizes: pizza.sizes.map((size) => normalizeSize(size)),
+  sauces: pizza.sauces.map((sauce) => normalizeSauce(sauce)),
+  namePizza: "",
+  dough: "light",
+  size: "small",
+  sauce: "tomato",
+});
+
 export default {
   namespaced: true,
 
-  state: {
-    ingredients: pizza.ingredients.map((ingredient) =>
-      normalizeIngredient(ingredient)
-    ),
-    doughList: pizza.dough.map((dough) => normalizeDough(dough)),
-    sizes: pizza.sizes.map((size) => normalizeSize(size)),
-    sauces: pizza.sauces.map((sauce) => normalizeSauce(sauce)),
-    namePizza: "",
-    dough: "light",
-    size: "small",
-    sauce: "tomato",
-  },
+  state: defaultState(),
 
   mutations: {
     [SET_NAME_PIZZA](state, value) {
@@ -49,6 +52,10 @@ export default {
     [CHANGE_COUNT_INGREDIENT](state, { value, count }) {
       const ingredient = state.ingredients.find((it) => it.value === value);
       ingredient.count = count;
+    },
+
+    [RESET_BUILDER](state) {
+      Object.assign(state, defaultState());
     },
   },
 
