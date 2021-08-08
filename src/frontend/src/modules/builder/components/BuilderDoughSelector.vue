@@ -12,7 +12,7 @@
           name="dough"
           :value="dough.value"
           :checked="dough.value === value"
-          @change="$emit('change', dough.value)"
+          @change="setDough"
         >
           <b>{{ dough.name }}</b>
           <span>{{ dough.description }}</span>
@@ -23,22 +23,25 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 import RadioButton from "@/common/components/RadioButton";
+import { SET_DOUGH } from "@/store/mutations-types";
 
 export default {
   name: "BuilderDoughSelector",
   components: {
     RadioButton,
   },
-  props: {
-    doughList: {
-      type: Array,
-      required: true,
-    },
-    value: {
-      type: String,
-      required: true,
-    },
+  computed: {
+    ...mapState("Builder", {
+      doughList: "doughList",
+      value: "dough",
+    }),
+  },
+  methods: {
+    ...mapMutations("Builder", {
+      setDough: SET_DOUGH,
+    }),
   },
 };
 </script>

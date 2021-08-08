@@ -13,17 +13,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "BuilderPriceCounter",
-  props: {
-    total: {
-      type: Number,
-      default: 0,
-    },
-    disabled: {
-      type: Boolean,
-      default: true,
-    },
+  computed: {
+    ...mapGetters("Builder", {
+      total: "totalSum",
+      disabled: "isDisableCook",
+    }),
   },
 };
 </script>
