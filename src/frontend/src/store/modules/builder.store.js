@@ -15,12 +15,10 @@ import {
 } from "@/store/mutations-types";
 
 const defaultState = () => ({
-  ingredients: pizza.ingredients.map((ingredient) =>
-    normalizeIngredient(ingredient)
-  ),
-  doughList: pizza.dough.map((dough) => normalizeDough(dough)),
-  sizes: pizza.sizes.map((size) => normalizeSize(size)),
-  sauces: pizza.sauces.map((sauce) => normalizeSauce(sauce)),
+  ingredients: pizza.ingredients.map(normalizeIngredient),
+  doughList: pizza.dough.map(normalizeDough),
+  sizes: pizza.sizes.map(normalizeSize),
+  sauces: pizza.sauces.map(normalizeSauce),
   namePizza: "",
   dough: "light",
   size: "small",

@@ -1,12 +1,13 @@
 import { ADD_TO_CART } from "@/store/mutations-types";
 import misc from "@/static/misc.json";
+import { normalizeMisc } from "@/common/helpers";
 
 export default {
   namespaced: true,
 
   state: {
     cart: [],
-    misc,
+    misc: misc.map(normalizeMisc),
   },
 
   mutations: {

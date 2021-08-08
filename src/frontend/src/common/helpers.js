@@ -21,3 +21,8 @@ export const normalizeIngredient = (ingredient) => ({
   value: ingredient.image.match(/[A-Za-z-_]*\.svg$/)[0].slice(0, -4),
   count: 0,
 });
+
+export const normalizeMisc = (misc) => ({
+  ...misc,
+  count: 0,
+});
