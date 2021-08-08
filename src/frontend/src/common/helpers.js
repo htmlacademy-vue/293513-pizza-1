@@ -1,5 +1,5 @@
 import { DOUGH_SIZES, SAUCES_TYPE } from "@/common/constants";
-import pizzasSize from "@/common/enums/pizzasSize";
+import { pizzaSizeString } from "@/common/enums/pizzasSize";
 
 export const normalizeDough = (dough) => ({
   ...dough,
@@ -8,7 +8,7 @@ export const normalizeDough = (dough) => ({
 
 export const normalizeSize = (size) => ({
   ...size,
-  value: pizzasSize[size.multiplier],
+  value: pizzaSizeString[size.multiplier],
 });
 
 export const normalizeSauce = (sauce) => ({

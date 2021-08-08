@@ -1,15 +1,16 @@
 import { ADD_TO_CART } from "@/store/mutations-types";
+import misc from "@/static/misc.json";
 
 export default {
   namespaced: true,
 
   state: {
     cart: [],
+    misc,
   },
 
   mutations: {
     [ADD_TO_CART](state, order) {
-      console.log(order);
       state.cart.push(order);
     },
   },
