@@ -1,6 +1,8 @@
 import {
   ADD_TO_CART,
+  DECREMENT_MISC,
   DECREMENT_ORDER,
+  INCREMENT_MISC,
   INCREMENT_ORDER,
   REMOVE_ORDER,
 } from "@/store/mutations-types";
@@ -33,13 +35,31 @@ export default {
       const el = state.cart.find((it) => it.id === order.id);
       el.quantity -= 1;
     },
+
+    [INCREMENT_MISC](state, misc) {
+      const el = state.misc.find((it) => it.id === misc.id);
+      el.quantity += 1;
+    },
+
+    [DECREMENT_MISC](state, misc) {
+      const el = state.misc.find((it) => it.id === misc.id);
+      if (el.quantity !== 0) {
+        el.quantity -= 1;
+      }
+    },
   },
 
   getters: {
     totalSum(state) {
-      return state.cart.reduce((acc, item) => {
+      const sumPizza = state.cart.reduce((acc, item) => {
         return acc + item.price * item.quantity;
       }, 0);
+
+      const sumMisc = state.misc.reduce((acc, item) => {
+        return acc + item.price * item.quantity;
+      }, 0);
+
+      return sumPizza + sumMisc;
     },
   },
 

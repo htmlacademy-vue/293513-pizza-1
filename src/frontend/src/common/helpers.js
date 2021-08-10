@@ -24,5 +24,5 @@ export const normalizeIngredient = (ingredient) => ({
 
 export const normalizeMisc = (misc) => ({
   ...misc,
-  count: 0,
+  quantity: 0,
 });

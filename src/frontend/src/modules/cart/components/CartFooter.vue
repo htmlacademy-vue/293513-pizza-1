@@ -1,7 +1,9 @@
 <template>
   <section class="footer">
     <div class="footer__more">
-      <a href="#" class="button button--border button--arrow">Хочу еще одну</a>
+      <router-link to="/" class="button button--border button--arrow">
+        Хочу еще одну
+      </router-link>
     </div>
 
     <p class="footer__text">
@@ -9,7 +11,7 @@
     </p>
 
     <div class="footer__price">
-      <b>Итого: 2 228 ₽</b>
+      <b>Итого: {{ totalSum }} ₽</b>
     </div>
 
     <div class="footer__submit">
@@ -19,7 +21,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "CartFooter",
+  computed: {
+    ...mapGetters("Cart", ["totalSum"]),
+  },
 };
 </script>

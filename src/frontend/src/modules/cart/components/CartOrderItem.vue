@@ -46,7 +46,7 @@
     </div>
 
     <div class="cart-list__price">
-      <b>{{ totalSum }} ₽</b>
+      <b>{{ getTotalSum }} ₽</b>
     </div>
 
     <div class="cart-list__button">
@@ -60,7 +60,7 @@
 <script>
 import { pizzaSizeNumber } from "@/common/enums/pizzasSize";
 import { SAUCES_TYPE } from "@/common/constants";
-import { mapActions, mapGetters, mapMutations } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 import {
   CHANGE_BUILDER,
   DECREMENT_ORDER,
@@ -78,8 +78,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters("Cart", ["totalSum"]),
-
     getSize() {
       return pizzaSizeNumber[this.order.size];
     },
@@ -102,6 +100,10 @@ export default {
         item.name.toLowerCase()
       );
       return ingredients.join(", ");
+    },
+
+    getTotalSum() {
+      return this.order.price * this.order.quantity;
     },
   },
 
