@@ -7,14 +7,14 @@
         name="pizza_name"
         placeholder="Введите название пиццы"
         :value="name"
-        @input="$emit('input', $event.target.value.trim())"
+        @input="setName($event.target.value)"
       />
     </label>
 
     <div class="content__constructor">
       <app-drop
         @drop="
-          $emit('drop', {
+          changeCountIngredient({
             value: $event.value,
             count: $event.count + 1,
           })
@@ -22,7 +22,7 @@
       >
         <div class="pizza" :class="`pizza--foundation--${size}-${sauce}`">
           <div class="pizza__wrapper">
-            <template v-for="ingredient in checkedIngredients">
+            <template v-for="ingredient in selectedIngredients">
               <div
                 :key="ingredient.id"
                 class="pizza__filling"
@@ -46,45 +46,33 @@
       </app-drop>
     </div>
 
-    <builder-price-counter :total="total" :disabled="disabled" />
+    <builder-price-counter />
   </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations, mapState } from "vuex";
 import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
 import AppDrop from "@/common/components/AppDrop";
+import {
+  CHANGE_COUNT_INGREDIENT,
+  SET_NAME_PIZZA,
+} from "@/store/mutations-types";
+
 export default {
   name: "BuilderPizzaView",
   components: { AppDrop, BuilderPriceCounter },
-  props: {
-    doughSize: {
-      type: String,
-      required: true,
-      validator: (value) => ["light", "large"].includes(value),
-    },
-    sauce: {
-      type: String,
-      required: true,
-      validator: (value) => ["tomato", "creamy"].includes(value),
-    },
-    checkedIngredients: {
-      type: Array,
-      defaults: [],
-    },
-    total: {
-      type: Number,
-      default: 0,
-    },
-    name: {
-      type: String,
-      default: "",
-    },
-    disabled: {
-      type: Boolean,
-      default: true,
-    },
-  },
   computed: {
+    ...mapState("Builder", {
+      doughSize: "dough",
+      sauce: "sauce",
+      name: "namePizza",
+    }),
+
+    ...mapGetters("Builder", {
+      selectedIngredients: "selectedIngredients",
+    }),
+
     size() {
       if (this.doughSize === "light") {
         return "small";
@@ -92,6 +80,12 @@ export default {
 
       return "big";
     },
+  },
+  methods: {
+    ...mapMutations("Builder", {
+      setName: SET_NAME_PIZZA,
+      changeCountIngredient: CHANGE_COUNT_INGREDIENT,
+    }),
   },
 };
 </script>
