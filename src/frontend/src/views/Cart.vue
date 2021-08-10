@@ -1,5 +1,5 @@
 <template>
-  <form action="test.html" method="post" class="layout-form">
+  <form class="layout-form">
     <main class="content cart">
       <div class="container">
         <div class="cart__title">

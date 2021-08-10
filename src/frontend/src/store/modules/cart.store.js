@@ -5,17 +5,20 @@ import {
   INCREMENT_MISC,
   INCREMENT_ORDER,
   REMOVE_ORDER,
+  RESET_CART,
 } from "@/store/mutations-types";
 import misc from "@/static/misc.json";
 import { normalizeMisc } from "@/common/helpers";
 
+const defaultState = () => ({
+  cart: [],
+  misc: misc.map(normalizeMisc),
+});
+
 export default {
   namespaced: true,
 
-  state: {
-    cart: [],
-    misc: misc.map(normalizeMisc),
-  },
+  state: defaultState(),
 
   mutations: {
     [ADD_TO_CART](state, order) {
@@ -46,6 +49,10 @@ export default {
       if (el.quantity !== 0) {
         el.quantity -= 1;
       }
+    },
+
+    [RESET_CART](state) {
+      Object.assign(state, defaultState());
     },
   },
 
