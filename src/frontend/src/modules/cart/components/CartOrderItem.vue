@@ -20,7 +20,11 @@
     </div>
 
     <div class="counter cart-list__counter">
-      <button type="button" class="counter__button counter__button--minus">
+      <button
+        type="button"
+        class="counter__button counter__button--minus"
+        @click="decrementOrder(order)"
+      >
         <span class="visually-hidden">Меньше</span>
       </button>
 
@@ -29,22 +33,26 @@
         name="counter"
         class="counter__input"
         :value="order.quantity"
+        readonly
       />
 
       <button
         type="button"
         class="counter__button counter__button--plus counter__button--orange"
+        @click="incrementOrder(order)"
       >
         <span class="visually-hidden">Больше</span>
       </button>
     </div>
 
     <div class="cart-list__price">
-      <b>{{ order.price }} ₽</b>
+      <b>{{ totalSum }} ₽</b>
     </div>
 
     <div class="cart-list__button">
-      <button type="button" class="cart-list__edit">Изменить</button>
+      <button type="button" class="cart-list__edit" @click="changePizza">
+        Изменить
+      </button>
     </div>
   </li>
 </template>
@@ -52,6 +60,13 @@
 <script>
 import { pizzaSizeNumber } from "@/common/enums/pizzasSize";
 import { SAUCES_TYPE } from "@/common/constants";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import {
+  CHANGE_BUILDER,
+  DECREMENT_ORDER,
+  INCREMENT_ORDER,
+  REMOVE_ORDER,
+} from "@/store/mutations-types";
 
 export default {
   name: "CartOrderItem",
@@ -61,7 +76,10 @@ export default {
       required: true,
     },
   },
+
   computed: {
+    ...mapGetters("Cart", ["totalSum"]),
+
     getSize() {
       return pizzaSizeNumber[this.order.size];
     },
@@ -84,6 +102,27 @@ export default {
         item.name.toLowerCase()
       );
       return ingredients.join(", ");
+    },
+  },
+
+  methods: {
+    ...mapMutations("Builder", {
+      changeBuilder: CHANGE_BUILDER,
+    }),
+
+    ...mapMutations("Cart", {
+      removeOrder: REMOVE_ORDER,
+      incrementOrder: INCREMENT_ORDER,
+    }),
+
+    ...mapActions("Cart", {
+      decrementOrder: DECREMENT_ORDER,
+    }),
+
+    changePizza() {
+      this.changeBuilder(this.order);
+      this.removeOrder(this.order);
+      this.$router.push("/");
     },
   },
 };

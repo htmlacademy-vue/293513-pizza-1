@@ -6,6 +6,7 @@ import {
   normalizeSize,
 } from "@/common/helpers";
 import {
+  CHANGE_BUILDER,
   CHANGE_COUNT_INGREDIENT,
   RESET_BUILDER,
   SET_DOUGH,
@@ -54,6 +55,19 @@ export default {
 
     [RESET_BUILDER](state) {
       Object.assign(state, defaultState());
+    },
+
+    [CHANGE_BUILDER](state, order) {
+      state.namePizza = order.name;
+      state.dough = order.dough;
+      state.size = order.size;
+      state.sauce = order.sauce;
+      state.ingredients = state.ingredients.map((it) => {
+        const ingredient = order.ingredients.find(
+          (item) => item.value === it.value
+        );
+        return ingredient ? ingredient : it;
+      });
     },
   },
 

@@ -13,6 +13,7 @@
 <script>
 import CartAdditionalItem from "@/modules/cart/components/CartAdditionalItem";
 import { mapState } from "vuex";
+
 export default {
   name: "CartAdditionalList",
   components: { CartAdditionalItem },
