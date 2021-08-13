@@ -1,5 +1,12 @@
 import { DOUGH_SIZES, SAUCES_TYPE } from "@/common/constants";
 import { pizzaSizeString } from "@/common/enums/pizzasSize";
+import resources from "@/common/enums/resources";
+import {
+  AuthApiServer,
+  ReadOnlyApiService,
+  AddressApiService,
+  OrderApiService,
+} from "@/services/api.service";
 
 export const normalizeDough = (dough) => ({
   ...dough,
@@ -26,3 +33,19 @@ export const normalizeMisc = (misc) => ({
   ...misc,
   quantity: 0,
 });
+
+export const createResources = (notifier) => {
+  return {
+    [resources.AUTH]: new AuthApiServer(notifier),
+    [resources.ADDRESSES]: new AddressApiService(notifier),
+    [resources.DOUGH]: new ReadOnlyApiService(resources.DOUGH, notifier),
+    [resources.INGREDIENTS]: new ReadOnlyApiService(
+      resources.INGREDIENTS,
+      notifier
+    ),
+    [resources.MISC]: new ReadOnlyApiService(resources.MISC, notifier),
+    [resources.ORDERS]: new OrderApiService(notifier),
+    [resources.SAUCES]: new ReadOnlyApiService(resources.SAUCES, notifier),
+    [resources.SIZES]: new ReadOnlyApiService(resources.SIZES, notifier),
+  };
+};
