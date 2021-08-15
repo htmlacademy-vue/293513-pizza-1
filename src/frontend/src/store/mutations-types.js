@@ -1,3 +1,5 @@
+export const SET_LOADING = "SET_LOADING";
+export const SET_STATE_BUILDER = "SET_STATE_BUILDER";
 export const SET_DOUGH = "SET_DOUGH";
 export const SET_SIZE = "SET_SIZE";
 export const SET_SAUCE = "SET_SAUCE";

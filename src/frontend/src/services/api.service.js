@@ -18,12 +18,12 @@ export class ReadOnlyApiService extends BaseApiService {
   }
 
   async query(config = {}) {
-    const { data } = axiosInstance.get(this.#resource, config);
+    const { data } = await axiosInstance.get(this.#resource, config);
     return data;
   }
 
   async get(id, config = {}) {
-    const { data } = axiosInstance.get(`${this.#resource}/${id}`, config);
+    const { data } = await axiosInstance.get(`${this.#resource}/${id}`, config);
     return data;
   }
 }
@@ -37,12 +37,12 @@ export class CrudApiService extends ReadOnlyApiService {
   }
 
   async post(entity) {
-    const { data } = axiosInstance.post(this.#resource, entity);
+    const { data } = await axiosInstance.post(this.#resource, entity);
     return data;
   }
 
   async put(entity) {
-    const { data } = axiosInstance.put(
+    const { data } = await axiosInstance.put(
       `${this.#resource}/${entity.id}`,
       entity
     );
@@ -50,7 +50,9 @@ export class CrudApiService extends ReadOnlyApiService {
   }
 
   async delete(entity) {
-    const { data } = axiosInstance.delete(`${this.#resource}/${entity.id}`);
+    const { data } = await axiosInstance.delete(
+      `${this.#resource}/${entity.id}`
+    );
     return data;
   }
 }

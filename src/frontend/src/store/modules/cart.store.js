@@ -71,7 +71,7 @@ export default {
   },
 
   actions: {
-    [ADD_TO_CART]({ rootState, rootGetters, commit }) {
+    [ADD_TO_CART]({ rootState, rootGetters, commit, dispatch }) {
       commit(ADD_TO_CART, {
         id: Date.now(),
         name: rootState.Builder.namePizza,
@@ -84,6 +84,7 @@ export default {
       });
 
       commit("Builder/RESET_BUILDER", null, { root: true });
+      dispatch("Builder/query", null, { root: true });
     },
 
     [DECREMENT_ORDER]({ commit }, order) {
