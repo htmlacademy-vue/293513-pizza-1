@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 import VuexPlugins from "@/plugins/vuexPlugins";
 import modules from "./modules";
-import { SET_LOADING } from "./mutations-types";
+import { SET_ENTITY } from "./mutations-types";
 
 Vue.use(Vuex);
 
@@ -19,13 +19,17 @@ export const actions = {
   },
 
   setLoading({ commit }, value) {
-    commit(SET_LOADING, value);
+    commit(SET_ENTITY, {
+      module: null,
+      entity: "isLoading",
+      value,
+    });
   },
 };
 
 export const mutations = {
-  [SET_LOADING](state, value) {
-    state.isLoading = value;
+  [SET_ENTITY](state, { module, entity, value }) {
+    module ? (state[module][entity] = value) : (state[entity] = value);
   },
 };
 

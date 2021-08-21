@@ -11,11 +11,16 @@
 <script>
 import AppLayout from "@/layouts/AppLayout";
 import AppStartLoader from "@/common/components/AppStartLoader";
+import { setAuth } from "@/common/helpers";
 
 export default {
   name: "App",
   components: { AppStartLoader, AppLayout },
   created() {
+    if (this.$jwt.getToken()) {
+      setAuth(this.$store);
+    }
+
     this.$store.dispatch("init");
   },
   computed: {

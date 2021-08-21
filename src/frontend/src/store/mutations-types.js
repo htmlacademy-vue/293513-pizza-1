@@ -15,3 +15,5 @@ export const DECREMENT_ORDER = "DECREMENT_ORDER";
 export const INCREMENT_MISC = "INCREMENT_MISC";
 export const DECREMENT_MISC = "DECREMENT_MISC";
 export const RESET_CART = "RESET_CART";
+
+export const SET_ENTITY = "SET_ENTITY";
