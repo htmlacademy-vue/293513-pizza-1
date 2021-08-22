@@ -6,6 +6,7 @@ import {
   INCREMENT_ORDER,
   REMOVE_ORDER,
   RESET_CART,
+  SET_PHONE,
 } from "@/store/mutations-types";
 import misc from "@/static/misc.json";
 import { normalizeMisc } from "@/common/helpers";
@@ -13,6 +14,8 @@ import { normalizeMisc } from "@/common/helpers";
 const defaultState = () => ({
   cart: [],
   misc: misc.map(normalizeMisc),
+  phone: "",
+  address: null,
 });
 
 export default {
@@ -49,6 +52,10 @@ export default {
       if (el.quantity !== 0) {
         el.quantity -= 1;
       }
+    },
+
+    [SET_PHONE](state, phone) {
+      state.phone = phone;
     },
 
     [RESET_CART](state) {
@@ -93,6 +100,47 @@ export default {
       } else {
         commit(DECREMENT_ORDER, order);
       }
+    },
+
+    async sendOrder({ state, rootState }) {
+      const pizzas = state.cart.map((item) => ({
+        name: item.name,
+        sauceId: rootState.Builder.sauces.find((it) => it.value === item.sauce)
+          .id,
+        doughId: rootState.Builder.doughList.find(
+          (it) => it.value === item.dough
+        ).id,
+        sizeId: rootState.Builder.sizes.find((it) => it.value === item.size).id,
+        quantity: item.quantity,
+        ingredients: item.ingredients.map((it) => ({
+          ingredientId: it.id,
+          quantity: it.count,
+        })),
+      }));
+
+      const misc = state.misc.reduce((acc, item) => {
+        if (item.quantity > 0) {
+          return [
+            ...acc,
+            {
+              miscId: item.id,
+              quantity: item.quantity,
+            },
+          ];
+        }
+
+        return acc;
+      }, []);
+
+      const order = {
+        userId: rootState.Auth.user?.id ?? null,
+        phone: state.phone,
+        address: state.address,
+        pizzas,
+        misc,
+      };
+
+      await this.$api.orders.post(order);
     },
   },
 };

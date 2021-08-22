@@ -22,6 +22,7 @@ export const SAUCES_TYPE = [
 
 export const MOVE = "move";
 export const DATA_TRANSFER_PAYLOAD = "payload";
+export const MESSAGE_LIVE_TIME = 3000;
 
 /* eslint-disable */
 export const EMAIL_REGEX =

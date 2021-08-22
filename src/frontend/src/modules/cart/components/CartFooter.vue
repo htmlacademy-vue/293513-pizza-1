@@ -15,34 +15,18 @@
     </div>
 
     <div class="footer__submit">
-      <button type="submit" class="button" @click.prevent="isOpen = true">
-        Оформить заказ
-      </button>
+      <button type="submit" class="button">Оформить заказ</button>
     </div>
-
-    <cart-modal v-if="isOpen" :close="handleClose" />
   </section>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import CartModal from "@/modules/cart/components/CartModal";
 
 export default {
   name: "CartFooter",
-  components: { CartModal },
-  data() {
-    return {
-      isOpen: false,
-    };
-  },
   computed: {
     ...mapGetters("Cart", ["totalSum"]),
-  },
-  methods: {
-    handleClose() {
-      this.isOpen = false;
-    },
   },
 };
 </script>
