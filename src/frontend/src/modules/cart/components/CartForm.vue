@@ -4,7 +4,7 @@
       <label class="cart-form__select">
         <span class="cart-form__label">Получение заказа:</span>
 
-        <select name="test" class="select" v-model="delivery">
+        <select class="select" v-model="delivery">
           <option value="1">Заберу сам</option>
           <option value="2">Новый адрес</option>
           <template v-if="addresses.length">

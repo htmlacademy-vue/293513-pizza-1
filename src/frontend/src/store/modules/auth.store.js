@@ -8,10 +8,6 @@ export default {
     addresses: [],
   },
 
-  getters: {
-    getUserAttribute: (state) => (attr) => state.user ? state.user[attr] : "",
-  },
-
   actions: {
     async login({ dispatch }, credentials) {
       const data = await this.$api.auth.login(credentials);

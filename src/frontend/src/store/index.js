@@ -20,7 +20,7 @@ export const state = () => ({
 export const actions = {
   async init({ dispatch }) {
     dispatch("setLoading", true);
-    await Promise.all([dispatch("Builder/query")]);
+    await dispatch("Builder/query");
     dispatch("setLoading", false);
   },
 
