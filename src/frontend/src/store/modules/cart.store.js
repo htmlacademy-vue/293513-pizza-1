@@ -5,6 +5,7 @@ import {
   INCREMENT_MISC,
   INCREMENT_ORDER,
   REMOVE_ORDER,
+  REPEAT_ORDER,
   RESET_CART,
   SET_PHONE,
 } from "@/store/mutations-types";
@@ -60,6 +61,11 @@ export default {
 
     [RESET_CART](state) {
       Object.assign(state, defaultState());
+    },
+
+    [REPEAT_ORDER](state, order) {
+      state.cart = order.cart;
+      state.misc = order.misc;
     },
   },
 

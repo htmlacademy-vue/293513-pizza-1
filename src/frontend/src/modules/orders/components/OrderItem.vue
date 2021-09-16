@@ -14,7 +14,9 @@
       </div>
 
       <div class="order__button">
-        <button type="button" class="button">Повторить</button>
+        <button type="button" class="button" @click="handleRepeatOrder">
+          Повторить
+        </button>
       </div>
     </div>
 
@@ -41,9 +43,10 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations, mapState } from "vuex";
 import OrderItemPizza from "@/modules/orders/components/OrderItemPizza";
 import OrderItemMisc from "@/modules/orders/components/OrderItemMisc";
+import { REPEAT_ORDER } from "@/store/mutations-types";
 
 export default {
   name: "OrderItem",
@@ -56,6 +59,8 @@ export default {
   },
   computed: {
     ...mapGetters("Orders", ["sumPricePizza", "sumPriceMisc"]),
+    ...mapState("Builder", ["doughList", "sauces", "sizes", "ingredients"]),
+    ...mapState("Cart", ["misc"]),
 
     totalSum() {
       const sumPizza = this.order.orderPizzas.reduce((acc, item) => {
@@ -65,6 +70,54 @@ export default {
       const sumMisc = this.sumPriceMisc(this.order?.orderMisc);
 
       return sumPizza + sumMisc;
+    },
+  },
+  methods: {
+    ...mapMutations("Cart", {
+      repeatOrder: REPEAT_ORDER,
+    }),
+
+    handleRepeatOrder() {
+      const pizzasOrder = this.order.orderPizzas.map((item) => {
+        const dough = this.doughList.find((it) => it.id === item.doughId);
+        const sauce = this.sauces.find((it) => it.id === item.sauceId);
+        const size = this.sizes.find((it) => it.id === item.sizeId);
+        const ingredients = item.ingredients.map((it) => {
+          const ingredient = this.ingredients.find(
+            (el) => el.id === it.ingredientId
+          );
+          ingredient.count = it.quantity;
+          return ingredient;
+        });
+
+        return {
+          id: Date.now(),
+          name: item.name,
+          dough: dough.value,
+          sauce: sauce.value,
+          size: size.value,
+          price: this.sumPricePizza(item),
+          quantity: item.quantity,
+          ingredients,
+        };
+      });
+
+      const miscOrder = this.misc.map((item) => {
+        const misc = this.order.orderMisc.find((it) => it.miscId === item.id);
+
+        if (misc) {
+          item.quantity = misc.quantity;
+        }
+
+        return item;
+      });
+
+      this.repeatOrder({
+        cart: pizzasOrder,
+        misc: miscOrder,
+      });
+
+      this.$router.push({ name: "Cart" });
     },
   },
 };
