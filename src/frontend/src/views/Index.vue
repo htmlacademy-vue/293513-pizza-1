@@ -30,8 +30,5 @@ export default {
     BuilderDoughSelector,
     BuilderSizeSelector,
   },
-  mounted() {
-    this.$store.dispatch("init");
-  },
 };
 </script>

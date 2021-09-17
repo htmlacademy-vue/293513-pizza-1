@@ -60,5 +60,19 @@ export default {
         { root: true }
       );
     },
+
+    async removeOrder({ state, commit }, order) {
+      await this.$api.orders.delete(order);
+
+      commit(
+        SET_ENTITY,
+        {
+          module: "Orders",
+          entity: "orders",
+          value: state.orders.filter((it) => it.id !== order.id),
+        },
+        { root: true }
+      );
+    },
   },
 };

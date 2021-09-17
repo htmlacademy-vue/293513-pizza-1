@@ -10,7 +10,13 @@
       </div>
 
       <div class="order__button">
-        <button type="button" class="button button--border">Удалить</button>
+        <button
+          type="button"
+          class="button button--border"
+          @click="removeOrder(order)"
+        >
+          Удалить
+        </button>
       </div>
 
       <div class="order__button">
@@ -43,7 +49,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapState } from "vuex";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 import OrderItemPizza from "@/modules/orders/components/OrderItemPizza";
 import OrderItemMisc from "@/modules/orders/components/OrderItemMisc";
 import { REPEAT_ORDER } from "@/store/mutations-types";
@@ -76,6 +82,7 @@ export default {
     ...mapMutations("Cart", {
       repeatOrder: REPEAT_ORDER,
     }),
+    ...mapActions("Orders", ["removeOrder"]),
 
     handleRepeatOrder() {
       const pizzasOrder = this.order.orderPizzas.map((item) => {
@@ -86,8 +93,11 @@ export default {
           const ingredient = this.ingredients.find(
             (el) => el.id === it.ingredientId
           );
-          ingredient.count = it.quantity;
-          return ingredient;
+
+          return {
+            ...ingredient,
+            count: it.quantity,
+          };
         });
 
         return {
@@ -106,10 +116,13 @@ export default {
         const misc = this.order.orderMisc.find((it) => it.miscId === item.id);
 
         if (misc) {
-          item.quantity = misc.quantity;
+          return {
+            ...item,
+            quantity: misc.quantity,
+          };
         }
 
-        return item;
+        return { ...item };
       });
 
       this.repeatOrder({
