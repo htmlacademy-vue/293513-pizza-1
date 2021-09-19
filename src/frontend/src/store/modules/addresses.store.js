@@ -35,5 +35,38 @@ export default {
         { root: true }
       );
     },
+
+    async deleteAddress({ state, commit }, body) {
+      await this.$api.addresses.delete(body);
+
+      commit(
+        SET_ENTITY,
+        {
+          module: "Addresses",
+          entity: "addresses",
+          value: state.addresses.filter((it) => it.id !== body.id),
+        },
+        { root: true }
+      );
+    },
+
+    async editAddress({ state, commit }, body) {
+      await this.$api.addresses.put(body);
+
+      commit(
+        SET_ENTITY,
+        {
+          module: "Addresses",
+          entity: "addresses",
+          value: state.addresses.map((it) => {
+            if (it.id === body.id) {
+              return body;
+            }
+            return it;
+          }),
+        },
+        { root: true }
+      );
+    },
   },
 };

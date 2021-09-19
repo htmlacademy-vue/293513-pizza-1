@@ -1,10 +1,10 @@
 <template>
   <form
-    @submit.prevent="$emit('submit', handleAddAddress)"
+    @submit.prevent="$emit('submit', getAddress, resetForm)"
     class="address-form address-form--opened sheet"
   >
     <div class="address-form__header">
-      <b>Адрес №{{ addresses.length + 1 }}</b>
+      <b>Адрес №{{ getNumber }}</b>
     </div>
 
     <div class="address-form__wrapper">
@@ -96,34 +96,51 @@ import { mapActions, mapState } from "vuex";
 
 export default {
   name: "ProfileForm",
+  props: {
+    address: {
+      type: Object,
+      defaults: {},
+    },
+    number: {
+      type: Number,
+    },
+  },
   data() {
     return {
-      name: "",
-      street: "",
-      building: "",
-      flat: "",
-      comment: "",
+      name: this.address?.name || "",
+      street: this.address?.street || "",
+      building: this.address?.building || "",
+      flat: this.address?.flat || "",
+      comment: this.address?.comment || "",
     };
   },
   computed: {
     ...mapState("Addresses", ["addresses"]),
     ...mapState("Auth", ["user"]),
-  },
-  methods: {
-    ...mapActions("Addresses", ["addAddress"]),
 
-    handleAddAddress() {
-      this.addAddress({
+    getNumber() {
+      return this.number || this.addresses.length + 1;
+    },
+
+    getAddress() {
+      const data = {
         userId: this.user.id,
         name: this.name,
         street: this.street,
         building: this.building,
         flat: this.flat,
         comment: this.comment,
-      });
+      };
 
-      this.resetForm();
+      if (this.address) {
+        data.id = this.address.id;
+      }
+
+      return data;
     },
+  },
+  methods: {
+    ...mapActions("Addresses", ["addAddress"]),
 
     resetForm() {
       this.name = "";

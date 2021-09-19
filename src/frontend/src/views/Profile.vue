@@ -6,12 +6,15 @@
 
     <profile-user />
 
-    <div class="layout__address" v-for="address in addresses" :key="address.id">
-      <profile-address :address="address" />
-    </div>
+    <profile-address
+      :address="address"
+      v-for="(address, index) in addresses"
+      :key="address.id"
+      :number="index + 1"
+    />
 
     <div class="layout__address" v-if="isAddNewAddress">
-      <profile-form @close="handleCloseForm" @submit="handleCloseForm" />
+      <profile-form @close="handleCloseForm" @submit="handleAddAddress" />
     </div>
 
     <div class="layout__button">
@@ -45,10 +48,16 @@ export default {
     ...mapState("Addresses", ["addresses"]),
   },
   methods: {
-    ...mapActions("Addresses", ["getAddresses"]),
+    ...mapActions("Addresses", ["getAddresses", "addAddress"]),
 
     handleOpenForm() {
       this.isAddNewAddress = true;
+    },
+
+    handleAddAddress(address, callback) {
+      this.addAddress(address);
+      callback();
+      this.isAddNewAddress = false;
     },
 
     handleCloseForm(callback) {
