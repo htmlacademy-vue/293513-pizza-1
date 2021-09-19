@@ -41,7 +41,7 @@ export default {
       const clone = [...this.sizes];
 
       clone.sort((a, b) => {
-        return Number.parseInt(a.name) - Number.parseInt(b.name);
+        return a.multiplier - b.multiplier;
       });
 
       return clone;
