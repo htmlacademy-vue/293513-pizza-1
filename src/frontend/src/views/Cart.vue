@@ -60,7 +60,6 @@ export default {
   },
   methods: {
     ...mapActions("Addresses", ["getAddresses"]),
-    ...mapActions("Cart", ["query"]),
 
     async handleSubmit() {
       await this.$store.dispatch("Cart/sendOrder");
@@ -75,8 +74,6 @@ export default {
     if (this.isAuthenticated) {
       this.getAddresses();
     }
-
-    this.query();
   },
 };
 </script>

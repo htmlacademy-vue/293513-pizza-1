@@ -25,6 +25,7 @@ export default {
     }
 
     this.$store.dispatch("init");
+    this.$store.dispatch("Cart/getMisc");
   },
   computed: {
     isLoading() {

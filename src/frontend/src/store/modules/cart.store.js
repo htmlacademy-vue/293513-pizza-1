@@ -89,7 +89,7 @@ export default {
   },
 
   actions: {
-    async query({ commit }) {
+    async getMisc({ commit }) {
       const misc = await this.$api.misc.query();
 
       commit(

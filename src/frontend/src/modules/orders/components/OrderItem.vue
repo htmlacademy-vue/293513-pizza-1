@@ -74,7 +74,7 @@ export default {
         acc += this.sumPricePizza(item) * item.quantity;
         return acc;
       }, 0);
-      const sumMisc = this.sumPriceMisc(this.order?.orderMisc);
+      const sumMisc = this.sumPriceMisc(this.order.orderMisc);
 
       return sumPizza + sumMisc;
     },
@@ -102,7 +102,7 @@ export default {
         });
 
         return {
-          id: Date.now(),
+          id: `${Date.now()}-${Math.random()}`,
           name: item.name,
           dough: dough.value,
           sauce: sauce.value,
