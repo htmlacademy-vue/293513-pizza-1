@@ -1,5 +1,5 @@
 <template>
-  <ul class="container">
+  <ul class="container" v-if="notifications.length">
     <li
       class="notification"
       :class="{
@@ -45,6 +45,7 @@ export default {
   z-index: 100;
   display: grid;
   grid-gap: 10px;
+  width: auto;
   max-width: 300px;
   margin: 0;
   padding: 0;
@@ -52,13 +53,18 @@ export default {
 }
 
 .notification {
+  display: flex;
+  align-items: center;
+  min-height: 32px;
   padding: 8px;
+  font-size: 16px;
   color: $white;
   background-color: $info;
   border-radius: 4px;
   animation-name: show;
   animation-duration: 250ms;
   animation-timing-function: ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 .error {
@@ -66,7 +72,7 @@ export default {
 }
 
 .success {
-  background-color: $green-500;
+  background-color: $green-400;
 }
 
 .warning {
