@@ -1,4 +1,3 @@
-import pizza from "@/static/pizza.json";
 import {
   normalizeDough,
   normalizeIngredient,
@@ -13,25 +12,46 @@ import {
   SET_NAME_PIZZA,
   SET_SAUCE,
   SET_SIZE,
+  SET_STATE_BUILDER,
 } from "@/store/mutations-types";
-
-const defaultState = () => ({
-  ingredients: pizza.ingredients.map(normalizeIngredient),
-  doughList: pizza.dough.map(normalizeDough),
-  sizes: pizza.sizes.map(normalizeSize),
-  sauces: pizza.sauces.map(normalizeSauce),
-  namePizza: "",
-  dough: "light",
-  size: "small",
-  sauce: "tomato",
-});
 
 export default {
   namespaced: true,
 
-  state: defaultState(),
+  state: {
+    ingredients: [],
+    doughList: [],
+    sizes: [],
+    sauces: [],
+    namePizza: "",
+    dough: "light",
+    size: "small",
+    sauce: "tomato",
+  },
+
+  actions: {
+    async query({ commit }) {
+      const [dough, ingredients, sauces, sizes] = await Promise.all([
+        this.$api.dough.query(),
+        this.$api.ingredients.query(),
+        this.$api.sauces.query(),
+        this.$api.sizes.query(),
+      ]);
+
+      commit(SET_STATE_BUILDER, {
+        doughList: dough.map(normalizeDough),
+        ingredients: ingredients.map(normalizeIngredient),
+        sizes: sizes.map(normalizeSize),
+        sauces: sauces.map(normalizeSauce),
+      });
+    },
+  },
 
   mutations: {
+    [SET_STATE_BUILDER](state, value) {
+      Object.assign(state, value);
+    },
+
     [SET_NAME_PIZZA](state, value) {
       state.namePizza = value;
     },
@@ -54,7 +74,10 @@ export default {
     },
 
     [RESET_BUILDER](state) {
-      Object.assign(state, defaultState());
+      state.namePizza = "";
+      state.dough = "light";
+      state.size = "small";
+      state.sauce = "tomato";
     },
 
     [CHANGE_BUILDER](state, order) {

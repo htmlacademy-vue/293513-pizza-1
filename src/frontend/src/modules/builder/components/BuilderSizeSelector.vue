@@ -5,7 +5,7 @@
 
       <div class="sheet__content diameter">
         <radio-button
-          v-for="size in sizes"
+          v-for="size in sortedSizes"
           :key="size.id"
           class="diameter__input"
           :class="`diameter__input--${size.value}`"
@@ -36,6 +36,16 @@ export default {
       sizes: "sizes",
       value: "size",
     }),
+
+    sortedSizes() {
+      const clone = [...this.sizes];
+
+      clone.sort((a, b) => {
+        return a.multiplier - b.multiplier;
+      });
+
+      return clone;
+    },
   },
   methods: {
     ...mapMutations("Builder", {

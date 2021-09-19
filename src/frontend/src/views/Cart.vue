@@ -1,5 +1,5 @@
 <template>
-  <form class="layout-form">
+  <form class="layout-form" @submit.prevent="handleSubmit">
     <main class="content cart">
       <div class="container">
         <div class="cart__title">
@@ -21,27 +21,59 @@
     </main>
 
     <cart-footer v-if="!isEmptyCart" />
+
+    <cart-modal v-if="isOpen" :close="handleClose" />
   </form>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import CartOrdersList from "@/modules/cart/components/CartOrdersList";
 import CartAdditionalList from "@/modules/cart/components/CartAdditionalList";
 import CartForm from "@/modules/cart/components/CartForm";
 import CartFooter from "@/modules/cart/components/CartFooter";
+import CartModal from "@/modules/cart/components/CartModal";
 
 export default {
   name: "Cart",
-  components: { CartFooter, CartForm, CartAdditionalList, CartOrdersList },
+  components: {
+    CartFooter,
+    CartForm,
+    CartAdditionalList,
+    CartOrdersList,
+    CartModal,
+  },
+  data() {
+    return {
+      isOpen: false,
+    };
+  },
   computed: {
     ...mapState("Cart", {
       cart: "cart",
     }),
+    ...mapState("Auth", ["isAuthenticated"]),
 
     isEmptyCart() {
       return !this.cart.length;
     },
+  },
+  methods: {
+    ...mapActions("Addresses", ["getAddresses"]),
+
+    async handleSubmit() {
+      await this.$store.dispatch("Cart/sendOrder");
+      this.isOpen = true;
+    },
+
+    handleClose() {
+      this.isOpen = false;
+    },
+  },
+  mounted() {
+    if (this.isAuthenticated) {
+      this.getAddresses();
+    }
   },
 };
 </script>

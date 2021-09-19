@@ -5,14 +5,19 @@ import {
   INCREMENT_MISC,
   INCREMENT_ORDER,
   REMOVE_ORDER,
+  REPEAT_ORDER,
   RESET_CART,
+  SET_ADDRESS,
+  SET_ENTITY,
+  SET_PHONE,
 } from "@/store/mutations-types";
-import misc from "@/static/misc.json";
 import { normalizeMisc } from "@/common/helpers";
 
 const defaultState = () => ({
   cart: [],
-  misc: misc.map(normalizeMisc),
+  misc: [],
+  phone: "",
+  address: null,
 });
 
 export default {
@@ -51,8 +56,21 @@ export default {
       }
     },
 
+    [SET_PHONE](state, phone) {
+      state.phone = phone;
+    },
+
+    [SET_ADDRESS](state, { field, value }) {
+      state.address[field] = value;
+    },
+
     [RESET_CART](state) {
       Object.assign(state, defaultState());
+    },
+
+    [REPEAT_ORDER](state, order) {
+      state.cart = order.cart;
+      state.misc = order.misc;
     },
   },
 
@@ -71,7 +89,21 @@ export default {
   },
 
   actions: {
-    [ADD_TO_CART]({ rootState, rootGetters, commit }) {
+    async getMisc({ commit }) {
+      const misc = await this.$api.misc.query();
+
+      commit(
+        SET_ENTITY,
+        {
+          module: "Cart",
+          entity: "misc",
+          value: misc.map(normalizeMisc),
+        },
+        { root: true }
+      );
+    },
+
+    [ADD_TO_CART]({ rootState, rootGetters, commit, dispatch }) {
       commit(ADD_TO_CART, {
         id: Date.now(),
         name: rootState.Builder.namePizza,
@@ -84,6 +116,7 @@ export default {
       });
 
       commit("Builder/RESET_BUILDER", null, { root: true });
+      dispatch("Builder/query", null, { root: true });
     },
 
     [DECREMENT_ORDER]({ commit }, order) {
@@ -92,6 +125,59 @@ export default {
       } else {
         commit(DECREMENT_ORDER, order);
       }
+    },
+
+    addAddress({ commit }, address) {
+      commit(
+        SET_ENTITY,
+        {
+          module: "Cart",
+          entity: "address",
+          value: address,
+        },
+        { root: true }
+      );
+    },
+
+    async sendOrder({ state, rootState }) {
+      const pizzas = state.cart.map((item) => ({
+        name: item.name,
+        sauceId: rootState.Builder.sauces.find((it) => it.value === item.sauce)
+          .id,
+        doughId: rootState.Builder.doughList.find(
+          (it) => it.value === item.dough
+        ).id,
+        sizeId: rootState.Builder.sizes.find((it) => it.value === item.size).id,
+        quantity: item.quantity,
+        ingredients: item.ingredients.map((it) => ({
+          ingredientId: it.id,
+          quantity: it.count,
+        })),
+      }));
+
+      const misc = state.misc.reduce((acc, item) => {
+        if (item.quantity > 0) {
+          return [
+            ...acc,
+            {
+              miscId: item.id,
+              quantity: item.quantity,
+            },
+          ];
+        }
+
+        return acc;
+      }, []);
+
+      const order = {
+        userId: rootState.Auth.user?.id ?? null,
+        phone: state.phone,
+        address: state.address,
+        pizzas,
+        misc,
+      };
+
+      await this.$api.orders.post(order);
     },
   },
 };

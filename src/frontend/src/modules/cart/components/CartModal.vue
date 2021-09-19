@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 import { RESET_CART } from "@/store/mutations-types";
 
 export default {
@@ -32,6 +32,9 @@ export default {
       required: true,
     },
   },
+  computed: {
+    ...mapState("Auth", ["isAuthenticated"]),
+  },
   methods: {
     ...mapMutations("Cart", {
       resetCart: RESET_CART,
@@ -39,7 +42,13 @@ export default {
 
     handleClose() {
       this.close();
-      this.$router.push("/");
+
+      if (this.isAuthenticated) {
+        this.$router.push({ name: "Orders" });
+      } else {
+        this.$router.push("/");
+      }
+
       this.resetCart();
     },
   },

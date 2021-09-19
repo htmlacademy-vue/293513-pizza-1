@@ -13,10 +13,18 @@
           />
         </router-link>
 
-        <router-link class="layout__link" to="/orders">
+        <router-link
+          class="layout__link"
+          active-class="layout__link--active"
+          to="/orders"
+        >
           История заказов
         </router-link>
-        <router-link class="layout__link layout__link--active" to="/profile">
+        <router-link
+          class="layout__link"
+          active-class="layout__link--active"
+          to="/profile"
+        >
           Мои данные
         </router-link>
       </div>
@@ -28,6 +36,7 @@
 
 <script>
 import AppHeader from "@/layouts/AppHeader";
+
 export default {
   name: "AppLayoutWithSidebar",
   components: { AppHeader },
