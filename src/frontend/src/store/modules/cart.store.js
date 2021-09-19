@@ -11,12 +11,11 @@ import {
   SET_ENTITY,
   SET_PHONE,
 } from "@/store/mutations-types";
-import misc from "@/static/misc.json";
 import { normalizeMisc } from "@/common/helpers";
 
 const defaultState = () => ({
   cart: [],
-  misc: misc.map(normalizeMisc),
+  misc: [],
   phone: "",
   address: null,
 });
@@ -90,6 +89,20 @@ export default {
   },
 
   actions: {
+    async query({ commit }) {
+      const misc = await this.$api.misc.query();
+
+      commit(
+        SET_ENTITY,
+        {
+          module: "Cart",
+          entity: "misc",
+          value: misc.map(normalizeMisc),
+        },
+        { root: true }
+      );
+    },
+
     [ADD_TO_CART]({ rootState, rootGetters, commit, dispatch }) {
       commit(ADD_TO_CART, {
         id: Date.now(),
