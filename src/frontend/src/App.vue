@@ -5,17 +5,20 @@
     </app-layout>
 
     <app-start-loader v-else />
+
+    <notifications />
   </div>
 </template>
 
 <script>
 import AppLayout from "@/layouts/AppLayout";
 import AppStartLoader from "@/common/components/AppStartLoader";
+import Notifications from "@/common/components/Notifications";
 import { setAuth } from "@/common/helpers";
 
 export default {
   name: "App",
-  components: { AppStartLoader, AppLayout },
+  components: { Notifications, AppStartLoader, AppLayout },
   created() {
     if (this.$jwt.getToken()) {
       setAuth(this.$store);

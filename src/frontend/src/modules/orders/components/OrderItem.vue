@@ -43,7 +43,7 @@
     </ul>
 
     <p class="order__address" v-if="order.addressId">
-      Адрес доставки: {{ getAddressName }}
+      Адрес доставки: {{ order.orderAddress.name }}
     </p>
   </section>
 </template>
@@ -77,13 +77,6 @@ export default {
       const sumMisc = this.sumPriceMisc(this.order?.orderMisc);
 
       return sumPizza + sumMisc;
-    },
-
-    getAddressName() {
-      const address = this.addresses.find(
-        (it) => it.id === this.order.addressId
-      );
-      return address?.name;
     },
   },
   methods: {
@@ -121,7 +114,7 @@ export default {
       });
 
       const miscOrder = this.misc.map((item) => {
-        const misc = this.order.orderMisc.find((it) => it.miscId === item.id);
+        const misc = this.order?.orderMisc?.find((it) => it.miscId === item.id);
 
         if (misc) {
           return {
