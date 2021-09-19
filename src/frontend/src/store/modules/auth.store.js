@@ -5,7 +5,6 @@ export default {
   state: {
     user: null,
     isAuthenticated: false,
-    addresses: [],
   },
 
   actions: {
@@ -40,6 +39,16 @@ export default {
           module: "Auth",
           entity: "user",
           value: null,
+        },
+        { root: true }
+      );
+
+      commit(
+        SET_ENTITY,
+        {
+          module: "Addresses",
+          entity: "addresses",
+          value: [],
         },
         { root: true }
       );

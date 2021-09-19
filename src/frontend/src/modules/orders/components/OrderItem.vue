@@ -43,7 +43,7 @@
     </ul>
 
     <p class="order__address" v-if="order.addressId">
-      Адрес доставки: Тест (или если адрес новый - писать целиком)
+      Адрес доставки: {{ getAddressName }}
     </p>
   </section>
 </template>
@@ -67,6 +67,7 @@ export default {
     ...mapGetters("Orders", ["sumPricePizza", "sumPriceMisc"]),
     ...mapState("Builder", ["doughList", "sauces", "sizes", "ingredients"]),
     ...mapState("Cart", ["misc"]),
+    ...mapState("Addresses", ["addresses"]),
 
     totalSum() {
       const sumPizza = this.order.orderPizzas.reduce((acc, item) => {
@@ -76,6 +77,13 @@ export default {
       const sumMisc = this.sumPriceMisc(this.order?.orderMisc);
 
       return sumPizza + sumMisc;
+    },
+
+    getAddressName() {
+      const address = this.addresses.find(
+        (it) => it.id === this.order.addressId
+      );
+      return address?.name;
     },
   },
   methods: {

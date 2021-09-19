@@ -5,10 +5,16 @@
         <span class="cart-form__label">Получение заказа:</span>
 
         <select class="select" v-model="delivery">
-          <option value="1">Заберу сам</option>
-          <option value="2">Новый адрес</option>
+          <option :value="1">Заберу сам</option>
+          <option :value="2">Новый адрес</option>
           <template v-if="addresses.length">
-            <option value="3">Дом</option>
+            <option
+              v-for="address in addresses"
+              :key="address.id"
+              :value="address.name"
+            >
+              {{ address.name }}
+            </option>
           </template>
         </select>
       </label>
@@ -20,12 +26,12 @@
           type="tel"
           name="tel"
           placeholder="+7 999-999-99-99"
-          @input="handleSetPhone"
+          @input="setPhone(phone)"
           required
         />
       </label>
 
-      <div class="cart-form__address" v-if="delivery !== '1'">
+      <div class="cart-form__address" v-if="delivery !== 1">
         <span class="cart-form__label">Новый адрес:</span>
 
         <div class="cart-form__input">
@@ -35,6 +41,8 @@
               v-model="address.street"
               type="text"
               name="street"
+              @input="setAddress({ field: 'street', value: address.street })"
+              :disabled="disabledInput"
               required
             />
           </label>
@@ -47,6 +55,10 @@
               v-model="address.building"
               type="text"
               name="house"
+              @input="
+                setAddress({ field: 'building', value: address.building })
+              "
+              :disabled="disabledInput"
               required
             />
           </label>
@@ -55,7 +67,13 @@
         <div class="cart-form__input cart-form__input--small">
           <label class="input">
             <span>Квартира</span>
-            <input v-model="address.flat" type="text" name="apartment" />
+            <input
+              v-model="address.flat"
+              type="text"
+              name="apartment"
+              @input="setAddress({ field: 'flat', value: address.flat })"
+              :disabled="disabledInput"
+            />
           </label>
         </div>
       </div>
@@ -64,14 +82,14 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
-import { SET_PHONE } from "@/store/mutations-types";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
+import { SET_ADDRESS, SET_PHONE } from "@/store/mutations-types";
 
 export default {
   name: "CartForm",
   data() {
     return {
-      delivery: "1",
+      delivery: 1,
       phone: "",
       address: {
         street: "",
@@ -81,16 +99,47 @@ export default {
     };
   },
   computed: {
-    ...mapState("Auth", ["addresses"]),
+    ...mapState("Addresses", ["addresses"]),
+    ...mapGetters("Addresses", ["getAddress"]),
+
+    disabledInput() {
+      return typeof this.delivery === "string";
+    },
+  },
+  watch: {
+    delivery() {
+      if (typeof this.delivery === "string") {
+        const address = this.getAddress(this.delivery);
+        this.address.street = address.street;
+        this.address.building = address.building;
+        this.address.flat = address?.flat;
+
+        this.addAddress(address);
+      } else if (this.delivery === 2) {
+        this.address.street = "";
+        this.address.building = "";
+        this.address.flat = "";
+
+        this.addAddress({
+          street: "",
+          building: "",
+          flat: "",
+        });
+      } else {
+        this.address.street = "";
+        this.address.building = "";
+        this.address.flat = "";
+
+        this.addAddress(null);
+      }
+    },
   },
   methods: {
     ...mapMutations("Cart", {
       setPhone: SET_PHONE,
+      setAddress: SET_ADDRESS,
     }),
-
-    handleSetPhone() {
-      this.setPhone(this.phone);
-    },
+    ...mapActions("Cart", ["addAddress"]),
   },
 };
 </script>

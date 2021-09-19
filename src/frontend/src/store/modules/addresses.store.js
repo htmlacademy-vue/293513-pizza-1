@@ -7,6 +7,12 @@ export default {
     isLoading: false,
   },
 
+  getters: {
+    getAddress: (state) => (name) => {
+      return state.addresses.find((it) => it.name === name);
+    },
+  },
+
   actions: {
     async getAddresses({ commit }) {
       const data = await this.$api.addresses.query();

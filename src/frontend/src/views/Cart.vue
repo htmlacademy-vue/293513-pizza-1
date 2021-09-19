@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import CartOrdersList from "@/modules/cart/components/CartOrdersList";
 import CartAdditionalList from "@/modules/cart/components/CartAdditionalList";
 import CartForm from "@/modules/cart/components/CartForm";
@@ -52,12 +52,15 @@ export default {
     ...mapState("Cart", {
       cart: "cart",
     }),
+    ...mapState("Auth", ["isAuthenticated"]),
 
     isEmptyCart() {
       return !this.cart.length;
     },
   },
   methods: {
+    ...mapActions("Addresses", ["getAddresses"]),
+
     async handleSubmit() {
       await this.$store.dispatch("Cart/sendOrder");
       this.isOpen = true;
@@ -66,6 +69,11 @@ export default {
     handleClose() {
       this.isOpen = false;
     },
+  },
+  mounted() {
+    if (this.isAuthenticated) {
+      this.getAddresses();
+    }
   },
 };
 </script>

@@ -7,6 +7,8 @@ import {
   REMOVE_ORDER,
   REPEAT_ORDER,
   RESET_CART,
+  SET_ADDRESS,
+  SET_ENTITY,
   SET_PHONE,
 } from "@/store/mutations-types";
 import misc from "@/static/misc.json";
@@ -59,6 +61,10 @@ export default {
       state.phone = phone;
     },
 
+    [SET_ADDRESS](state, { field, value }) {
+      state.address[field] = value;
+    },
+
     [RESET_CART](state) {
       Object.assign(state, defaultState());
     },
@@ -106,6 +112,18 @@ export default {
       } else {
         commit(DECREMENT_ORDER, order);
       }
+    },
+
+    addAddress({ commit }, address) {
+      commit(
+        SET_ENTITY,
+        {
+          module: "Cart",
+          entity: "address",
+          value: address,
+        },
+        { root: true }
+      );
     },
 
     async sendOrder({ state, rootState }) {

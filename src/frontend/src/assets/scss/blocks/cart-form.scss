@@ -38,4 +38,8 @@
   &--small {
     max-width: 120px;
   }
+
+  & input:disabled {
+    opacity: 0.6;
+  }
 }

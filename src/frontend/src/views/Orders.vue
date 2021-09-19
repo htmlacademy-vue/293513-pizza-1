@@ -24,9 +24,11 @@ export default {
   },
   methods: {
     ...mapActions("Orders", ["getOrders"]),
+    ...mapActions("Addresses", ["getAddresses"]),
   },
   mounted() {
     this.getOrders();
+    this.getAddresses();
   },
 };
 </script>
