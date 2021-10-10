@@ -1,23 +1,25 @@
 <template>
-  <div class="backdrop" @click="handleClose">
-    <div class="popup" @click.stop>
-      <button class="close btn-close" @click.prevent="handleClose">
-        <span class="visually-hidden">Закрыть попап</span>
-      </button>
+  <transition name="fade" mode="out-in" appear>
+    <div class="backdrop" @click="handleClose">
+      <div class="popup" @click.stop>
+        <button class="close btn-close" @click.prevent="handleClose">
+          <span class="visually-hidden">Закрыть попап</span>
+        </button>
 
-      <div class="popup__title">
-        <h2 class="title">Спасибо за заказ</h2>
-      </div>
+        <div class="popup__title">
+          <h2 class="title">Спасибо за заказ</h2>
+        </div>
 
-      <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
+        <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
 
-      <div class="popup__button">
-        <a href="#" class="button" @click.prevent="handleClose">
-          Отлично, я жду!
-        </a>
+        <div class="popup__button">
+          <a href="#" class="button" @click.prevent="handleClose">
+            Отлично, я жду!
+          </a>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -55,7 +57,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .backdrop {
   position: fixed;
   top: 0;
@@ -69,5 +71,17 @@ export default {
 .btn-close {
   background-color: transparent;
   border: none;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 300ms;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>
