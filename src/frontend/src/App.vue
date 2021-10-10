@@ -43,7 +43,7 @@ export default {
 .slide-enter-active,
 .slide-leave-active {
   transition-duration: 500ms;
-  transition-property: height, opacity, transform;
+  transition-property: all;
   transition-timing-function: ease;
 }
 
