@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <app-layout v-if="!isLoading">
-      <router-view />
+      <transition name="slide" mode="out-in" appear>
+        <router-view />
+      </transition>
     </app-layout>
 
     <app-start-loader v-else />
@@ -37,4 +39,21 @@ export default {
 
 <style lang="scss">
 @import "~@/assets/scss/app";
+
+.slide-enter-active,
+.slide-leave-active {
+  transition-duration: 500ms;
+  transition-property: all;
+  transition-timing-function: ease;
+}
+
+.slide-enter {
+  opacity: 0;
+  transform: translate(50px, 0);
+}
+
+.slide-leave-active {
+  opacity: 0;
+  transform: translate(-50px, 0);
+}
 </style>
