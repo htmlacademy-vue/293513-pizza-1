@@ -45,13 +45,15 @@ export default {
     handleClose() {
       this.close();
 
-      if (this.isAuthenticated) {
-        this.$router.push({ name: "Orders" });
-      } else {
-        this.$router.push("/");
-      }
+      setTimeout(() => {
+        if (this.isAuthenticated) {
+          this.$router.push({ name: "Orders" });
+        } else {
+          this.$router.push("/");
+        }
 
-      this.resetCart();
+        this.resetCart();
+      }, 400);
     },
   },
 };

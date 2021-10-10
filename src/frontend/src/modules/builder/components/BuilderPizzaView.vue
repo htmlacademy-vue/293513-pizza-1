@@ -22,25 +22,27 @@
       >
         <div class="pizza" :class="`pizza--foundation--${size}-${sauce}`">
           <div class="pizza__wrapper">
-            <template v-for="ingredient in selectedIngredients">
-              <div
-                :key="ingredient.id"
-                class="pizza__filling"
-                :class="`pizza__filling--${ingredient.value}`"
-              />
+            <transition-group name="drop" mode="out-in">
+              <template v-for="ingredient in selectedIngredients">
+                <div
+                  :key="ingredient.id"
+                  class="pizza__filling"
+                  :class="`pizza__filling--${ingredient.value}`"
+                />
 
-              <div
-                v-if="ingredient.count > 1"
-                :key="`${ingredient.id}-${Math.random()}`"
-                :class="`pizza__filling pizza__filling--${ingredient.value} pizza__filling--second`"
-              />
+                <div
+                  v-if="ingredient.count > 1"
+                  :key="`${ingredient.id}-${Math.random()}`"
+                  :class="`pizza__filling pizza__filling--${ingredient.value} pizza__filling--second`"
+                />
 
-              <div
-                v-if="ingredient.count > 2"
-                :key="`${ingredient.id}-${Math.random()}`"
-                :class="`pizza__filling pizza__filling--${ingredient.value} pizza__filling--third`"
-              />
-            </template>
+                <div
+                  v-if="ingredient.count > 2"
+                  :key="`${ingredient.id}-${Math.random()}`"
+                  :class="`pizza__filling pizza__filling--${ingredient.value} pizza__filling--third`"
+                />
+              </template>
+            </transition-group>
           </div>
         </div>
       </app-drop>
@@ -89,3 +91,25 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.drop-enter-active {
+  animation: drop 500ms;
+}
+
+.drop-leave-active {
+  animation: drop 500ms reverse;
+}
+
+@keyframes drop {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(0deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+</style>
