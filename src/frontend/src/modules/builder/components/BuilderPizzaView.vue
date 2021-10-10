@@ -32,13 +32,13 @@
 
                 <div
                   v-if="ingredient.count > 1"
-                  :key="`${ingredient.id}-${Math.random()}`"
+                  :key="`${ingredient.id}-1`"
                   :class="`pizza__filling pizza__filling--${ingredient.value} pizza__filling--second`"
                 />
 
                 <div
                   v-if="ingredient.count > 2"
-                  :key="`${ingredient.id}-${Math.random()}`"
+                  :key="`${ingredient.id}-2`"
                   :class="`pizza__filling pizza__filling--${ingredient.value} pizza__filling--third`"
                 />
               </template>
