@@ -1,20 +1,18 @@
 import { shallowMount } from "@vue/test-utils";
-import RadioButton from "@/common/components/RadioButton";
+import SelectorItem from "@/common/components/SelectorItem";
 
-describe("RadioButton", () => {
+describe("SelectorItem", () => {
   const slots = { default: "content" };
   let props;
 
   let wrapper;
   const createComponent = (options) => {
-    wrapper = shallowMount(RadioButton, options);
+    wrapper = shallowMount(SelectorItem, options);
   };
 
   beforeEach(() => {
     props = {
-      name: "test",
       value: "test",
-      checked: false,
     };
   });
 
@@ -25,12 +23,5 @@ describe("RadioButton", () => {
   it("Renders out the slot content", () => {
     createComponent({ slots, propsData: props });
     expect(wrapper.html()).toContain(slots.default);
-  });
-
-  it("Raises the change event on change", async () => {
-    createComponent({ slots, propsData: props });
-    const input = wrapper.find("input");
-    await input.trigger("change");
-    expect(wrapper.emitted("change")).toBeTruthy();
   });
 });
