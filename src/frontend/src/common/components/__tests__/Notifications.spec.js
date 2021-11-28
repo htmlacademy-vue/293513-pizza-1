@@ -2,7 +2,7 @@ import { shallowMount } from "@vue/test-utils";
 import Notifications from "@/common/components/Notifications";
 
 describe("Notifications", () => {
-  const mock = {
+  const mocks = {
     $store: {
       state: {
         notifications: [],
@@ -11,17 +11,42 @@ describe("Notifications", () => {
   };
 
   let wrapper;
-  // const createComponent = (options) => {
-  //   wrapper = shallowMount(Notifications, options);
-  // };
-  //
-  // afterEach(() => {
-  //   wrapper.destroy();
-  //   mock.$store.state.notifications = [];
-  // });
+  const createComponent = (options) => {
+    wrapper = shallowMount(Notifications, options);
+  };
+
+  afterEach(() => {
+    wrapper.destroy();
+    mocks.$store.state.notifications = [];
+  });
 
   it("Doesn't render out when no notifications", () => {
-    // createComponent({ mock });
-    // expect(wrapper.html()).toBeFalsy();
+    createComponent({ mocks });
+    expect(wrapper.html()).toBeFalsy();
+  });
+
+  it("Renders out when we have notifications", () => {
+    mocks.$store.state.notifications = [
+      {
+        text: "test",
+        type: "warning",
+      },
+    ];
+
+    createComponent({ mocks });
+    expect(wrapper.html()).toBeTruthy();
+  });
+
+  it("Renders out notification", () => {
+    mocks.$store.state.notifications = [
+      {
+        text: "test",
+        type: "warning",
+      },
+    ];
+
+    createComponent({ mocks });
+    expect(wrapper.html()).toContain("notification warning");
+    expect(wrapper.html()).toContain("test");
   });
 });
