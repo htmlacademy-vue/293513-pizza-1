@@ -45,6 +45,10 @@ export default {
         sauces: sauces.map(normalizeSauce),
       });
     },
+
+    setDough({ commit }, value) {
+      commit(SET_DOUGH, value);
+    },
   },
 
   mutations: {

@@ -13,6 +13,7 @@
           :value="dough.value"
           :checked="dough.value === value"
           @change="setDough"
+          data-test="dough-radio-button"
         >
           <b>{{ dough.name }}</b>
           <span>{{ dough.description }}</span>
@@ -23,9 +24,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapActions } from "vuex";
 import RadioButton from "@/common/components/RadioButton";
-import { SET_DOUGH } from "@/store/mutations-types";
 
 export default {
   name: "BuilderDoughSelector",
@@ -39,9 +39,7 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations("Builder", {
-      setDough: SET_DOUGH,
-    }),
+    ...mapActions("Builder", ["setDough"]),
   },
 };
 </script>
