@@ -49,6 +49,14 @@ export default {
     setDough({ commit }, value) {
       commit(SET_DOUGH, value);
     },
+
+    setSauce({ commit }, value) {
+      commit(SET_SAUCE, value);
+    },
+
+    changeCountIngredient({ commit }, value) {
+      commit(CHANGE_COUNT_INGREDIENT, value);
+    },
   },
 
   mutations: {

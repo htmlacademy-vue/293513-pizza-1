@@ -3,30 +3,13 @@ import Vuex from "vuex";
 import { generateMockStore } from "@/store/mock";
 import { SET_ENTITY } from "@/store/mutations-types";
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
+import pizza from "@/static/pizza.json";
+import { normalizeDough } from "@/common/helpers";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-const dough = [
-  {
-    id: 1,
-    name: "Тонкое",
-    image: "/public/img/dough-light.svg",
-    description: "Из твердых сортов пшеницы",
-    price: 300,
-    type: "light",
-    value: "на тонком тесте",
-  },
-  {
-    id: 2,
-    name: "Толстое",
-    image: "/public/img/dough-large.svg",
-    description: "Из твердых сортов пшеницы",
-    price: 300,
-    type: "large",
-    value: "на толстом тесте",
-  },
-];
+const dough = pizza.dough.map(normalizeDough);
 
 const createDough = (store) => {
   store.commit(

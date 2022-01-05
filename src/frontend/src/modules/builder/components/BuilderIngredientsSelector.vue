@@ -15,6 +15,7 @@
             :value="sauceItem.value"
             :checked="sauceItem.value === valueSauce"
             @change="setSauce"
+            data-test="sauces-radio-button"
           >
             <span>{{ sauceItem.name }}</span>
           </radio-button>
@@ -49,6 +50,7 @@
                     count: $event,
                   })
                 "
+                data-test="ingredient-counter"
               />
             </li>
           </ul>
@@ -59,12 +61,11 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import RadioButton from "@/common/components/RadioButton";
 import SelectorItem from "@/common/components/SelectorItem";
 import ItemCounter from "@/common/components/ItemCounter";
 import AppDrag from "@/common/components/AppDrag";
-import { CHANGE_COUNT_INGREDIENT, SET_SAUCE } from "@/store/mutations-types";
 
 export default {
   name: "BuilderIngredientsSelector",
@@ -82,10 +83,7 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations("Builder", {
-      setSauce: SET_SAUCE,
-      changeCountIngredient: CHANGE_COUNT_INGREDIENT,
-    }),
+    ...mapActions("Builder", ["setSauce", "changeCountIngredient"]),
   },
 };
 </script>
