@@ -7,7 +7,8 @@
         name="pizza_name"
         placeholder="Введите название пиццы"
         :value="name"
-        @input="setName($event.target.value)"
+        @input="setNamePizza($event.target.value)"
+        data-test="builder-input-name"
       />
     </label>
 
@@ -20,7 +21,11 @@
           })
         "
       >
-        <div class="pizza" :class="`pizza--foundation--${size}-${sauce}`">
+        <div
+          class="pizza"
+          :class="`pizza--foundation--${size}-${sauce}`"
+          data-test="builder-pizza-view"
+        >
           <div class="pizza__wrapper">
             <transition-group name="drop" mode="out-in">
               <template v-for="ingredient in selectedIngredients">
@@ -53,13 +58,9 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
 import AppDrop from "@/common/components/AppDrop";
-import {
-  CHANGE_COUNT_INGREDIENT,
-  SET_NAME_PIZZA,
-} from "@/store/mutations-types";
 
 export default {
   name: "BuilderPizzaView",
@@ -84,10 +85,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations("Builder", {
-      setName: SET_NAME_PIZZA,
-      changeCountIngredient: CHANGE_COUNT_INGREDIENT,
-    }),
+    ...mapActions("Builder", ["setNamePizza", "changeCountIngredient"]),
   },
 };
 </script>

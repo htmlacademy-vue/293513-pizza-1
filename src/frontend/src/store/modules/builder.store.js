@@ -57,6 +57,10 @@ export default {
     changeCountIngredient({ commit }, value) {
       commit(CHANGE_COUNT_INGREDIENT, value);
     },
+
+    setNamePizza({ commit }, value) {
+      commit(SET_NAME_PIZZA, value);
+    },
   },
 
   mutations: {
