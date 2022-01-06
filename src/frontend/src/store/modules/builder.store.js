@@ -61,6 +61,10 @@ export default {
     setNamePizza({ commit }, value) {
       commit(SET_NAME_PIZZA, value);
     },
+
+    setSize({ commit }, value) {
+      commit(SET_SIZE, value);
+    },
   },
 
   mutations: {
