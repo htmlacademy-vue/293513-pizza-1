@@ -17,6 +17,7 @@
           class="counter__button counter__button--minus"
           @click="decrement(additional)"
           :disabled="!additional.quantity"
+          data-test="button-additional-decrement"
         >
           <span class="visually-hidden">Меньше</span>
         </button>
@@ -33,6 +34,7 @@
           type="button"
           class="counter__button counter__button--plus counter__button--orange"
           @click="increment(additional)"
+          data-test="button-additional-increment"
         >
           <span class="visually-hidden">Больше</span>
         </button>
@@ -46,8 +48,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import { DECREMENT_MISC, INCREMENT_MISC } from "@/store/mutations-types";
+import { mapActions } from "vuex";
 
 export default {
   name: "CartAdditionalItem",
@@ -58,10 +59,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations("Cart", {
-      increment: INCREMENT_MISC,
-      decrement: DECREMENT_MISC,
-    }),
+    ...mapActions("Cart", ["increment", "decrement"]),
   },
 };
 </script>

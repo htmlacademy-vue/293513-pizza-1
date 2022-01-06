@@ -103,6 +103,14 @@ export default {
       );
     },
 
+    decrement({ commit }, value) {
+      commit(DECREMENT_MISC, value);
+    },
+
+    increment({ commit }, value) {
+      commit(INCREMENT_MISC, value);
+    },
+
     [ADD_TO_CART]({ rootState, rootGetters, commit, dispatch }) {
       commit(ADD_TO_CART, {
         id: Date.now(),
