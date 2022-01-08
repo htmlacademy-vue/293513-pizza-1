@@ -111,6 +111,14 @@ export default {
       commit(INCREMENT_MISC, value);
     },
 
+    setPhone({ commit }, value) {
+      commit(SET_PHONE, value);
+    },
+
+    setAddress({ commit }, value) {
+      commit(SET_ADDRESS, value);
+    },
+
     [ADD_TO_CART]({ rootState, rootGetters, commit, dispatch }) {
       commit(ADD_TO_CART, {
         id: Date.now(),

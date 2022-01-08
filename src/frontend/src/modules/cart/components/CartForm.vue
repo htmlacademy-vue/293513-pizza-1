@@ -4,7 +4,7 @@
       <label class="cart-form__select">
         <span class="cart-form__label">Получение заказа:</span>
 
-        <select class="select" v-model="delivery">
+        <select class="select" v-model="delivery" data-test="cart-delivery">
           <option :value="1">Заберу сам</option>
           <option :value="2">Новый адрес</option>
           <template v-if="addresses.length">
@@ -28,10 +28,15 @@
           placeholder="+7 999-999-99-99"
           @input="setPhone(phone)"
           required
+          data-test="cart-phone"
         />
       </label>
 
-      <div class="cart-form__address" v-if="delivery !== 1">
+      <div
+        class="cart-form__address"
+        v-if="delivery !== 1"
+        data-test="cart-address-form"
+      >
         <span class="cart-form__label">Новый адрес:</span>
 
         <div class="cart-form__input">
@@ -44,6 +49,7 @@
               @input="setAddress({ field: 'street', value: address.street })"
               :disabled="disabledInput"
               required
+              data-test="cart-address-street"
             />
           </label>
         </div>
@@ -60,6 +66,7 @@
               "
               :disabled="disabledInput"
               required
+              data-test="cart-address-house"
             />
           </label>
         </div>
@@ -73,6 +80,7 @@
               name="apartment"
               @input="setAddress({ field: 'flat', value: address.flat })"
               :disabled="disabledInput"
+              data-test="cart-address-flat"
             />
           </label>
         </div>
@@ -82,8 +90,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
-import { SET_ADDRESS, SET_PHONE } from "@/store/mutations-types";
+import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   name: "CartForm",
@@ -135,11 +142,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations("Cart", {
-      setPhone: SET_PHONE,
-      setAddress: SET_ADDRESS,
-    }),
-    ...mapActions("Cart", ["addAddress"]),
+    ...mapActions("Cart", ["addAddress", "setPhone", "setAddress"]),
   },
 };
 </script>
