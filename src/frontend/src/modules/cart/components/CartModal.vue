@@ -2,7 +2,7 @@
   <transition name="fade" mode="out-in" appear>
     <div class="backdrop" @click="handleClose">
       <div class="popup" @click.stop>
-        <button class="close btn-close" @click.prevent="handleClose">
+        <button class="close btn-close" @click="handleClose">
           <span class="visually-hidden">Закрыть попап</span>
         </button>
 
@@ -13,7 +13,12 @@
         <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
 
         <div class="popup__button">
-          <a href="#" class="button" @click.prevent="handleClose">
+          <a
+            href="#"
+            class="button"
+            @click.prevent="handleClose"
+            data-test="cart-ready"
+          >
             Отлично, я жду!
           </a>
         </div>
@@ -23,8 +28,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
-import { RESET_CART } from "@/store/mutations-types";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "CartModal",
@@ -38,9 +42,7 @@ export default {
     ...mapState("Auth", ["isAuthenticated"]),
   },
   methods: {
-    ...mapMutations("Cart", {
-      resetCart: RESET_CART,
-    }),
+    ...mapActions("Cart", ["resetCart"]),
 
     handleClose() {
       this.close();

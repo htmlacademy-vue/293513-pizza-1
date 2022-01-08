@@ -119,6 +119,10 @@ export default {
       commit(SET_ADDRESS, value);
     },
 
+    resetCart({ commit }) {
+      commit(SET_ADDRESS);
+    },
+
     [ADD_TO_CART]({ rootState, rootGetters, commit, dispatch }) {
       commit(ADD_TO_CART, {
         id: Date.now(),
