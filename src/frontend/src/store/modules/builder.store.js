@@ -65,6 +65,10 @@ export default {
     setSize({ commit }, value) {
       commit(SET_SIZE, value);
     },
+
+    changeBuilder({ commit }, value) {
+      commit(CHANGE_BUILDER, value);
+    },
   },
 
   mutations: {
