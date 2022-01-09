@@ -103,6 +103,10 @@ export default {
       );
     },
 
+    repeatOrder({ commit }, value) {
+      commit(REPEAT_ORDER, value);
+    },
+
     decrement({ commit }, value) {
       commit(DECREMENT_MISC, value);
     },

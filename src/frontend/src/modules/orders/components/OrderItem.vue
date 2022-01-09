@@ -14,13 +14,19 @@
           type="button"
           class="button button--border"
           @click="removeOrder(order)"
+          data-test="button-remove-order"
         >
           Удалить
         </button>
       </div>
 
       <div class="order__button">
-        <button type="button" class="button" @click="handleRepeatOrder">
+        <button
+          type="button"
+          class="button"
+          @click="handleRepeatOrder"
+          data-test="button-repeat-order"
+        >
           Повторить
         </button>
       </div>
@@ -49,10 +55,9 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import OrderItemPizza from "@/modules/orders/components/OrderItemPizza";
 import OrderItemMisc from "@/modules/orders/components/OrderItemMisc";
-import { REPEAT_ORDER } from "@/store/mutations-types";
 
 export default {
   name: "OrderItem",
@@ -80,9 +85,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations("Cart", {
-      repeatOrder: REPEAT_ORDER,
-    }),
+    ...mapActions("Cart", ["repeatOrder"]),
     ...mapActions("Orders", ["removeOrder"]),
 
     handleRepeatOrder() {
