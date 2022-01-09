@@ -116,11 +116,15 @@ const createIngredients = (store) => {
 };
 
 const createMisc = (store) => {
-  store.commit(SET_ENTITY, {
-    module: "Cart",
-    entity: "misc",
-    value: misc,
-  });
+  store.commit(
+    SET_ENTITY,
+    {
+      module: "Cart",
+      entity: "misc",
+      value: misc,
+    },
+    { root: true }
+  );
 };
 
 describe("OrderItem", () => {

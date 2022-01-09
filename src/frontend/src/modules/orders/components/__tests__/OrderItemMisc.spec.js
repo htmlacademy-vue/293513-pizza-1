@@ -1,13 +1,17 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mock";
+import OrderItemMisc from "@/modules/orders/components/OrderItemMisc";
 import miscData from "@/static/misc.json";
 import { normalizeMisc } from "@/common/helpers";
 import { SET_ENTITY } from "@/store/mutations-types";
-import CartAdditionalList from "@/modules/cart/components/CartAdditionalList";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
+
+const propsData = {
+  misc: { id: 2, quantity: 2, orderId: 1, miscId: 2 },
+};
 
 const misc = miscData.map(normalizeMisc);
 
@@ -23,18 +27,18 @@ const createMisc = (store) => {
   );
 };
 
-describe("CartAdditionalList", () => {
+describe("OrderItemMisc", () => {
   let wrapper;
   let store;
 
   const createComponent = (options) => {
-    wrapper = mount(CartAdditionalList, options);
+    wrapper = mount(OrderItemMisc, options);
   };
 
   beforeEach(() => {
-    store = generateMockStore({});
+    store = generateMockStore();
     createMisc(store);
-    createComponent({ localVue, store });
+    createComponent({ localVue, store, propsData });
   });
 
   afterEach(() => {
@@ -45,8 +49,8 @@ describe("CartAdditionalList", () => {
     expect(wrapper.exists()).toBeTruthy();
   });
 
-  it("Component renders the passed number of misc", () => {
-    const miscItems = wrapper.findAll("[data-test='cart-additional-item']");
-    expect(miscItems).toHaveLength(misc.length);
+  it("If the quantity is greater than 1, then the multiplier is shown", () => {
+    const multiplier = wrapper.find("[data-test='misc-multiplier']");
+    expect(multiplier.exists()).toBeTruthy();
   });
 });

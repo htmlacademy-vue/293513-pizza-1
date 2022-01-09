@@ -5,7 +5,9 @@
     <p>
       <span>{{ getMisc.name }}</span>
       <b>
-        <span v-if="misc.quantity > 1">{{ misc.quantity }}x</span>
+        <span v-if="misc.quantity > 1" data-test="misc-multiplier">
+          {{ misc.quantity }}x
+        </span>
         <span>{{ getMisc.price }} ₽</span>
       </b>
     </p>
