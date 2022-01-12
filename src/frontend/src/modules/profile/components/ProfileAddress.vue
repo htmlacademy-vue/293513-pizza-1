@@ -5,7 +5,12 @@
         <b>Адрес №{{ number }}. {{ address.name }}</b>
 
         <div class="address-form__edit">
-          <button type="button" class="icon" @click="handleOpenEdit">
+          <button
+            type="button"
+            class="icon"
+            @click="handleOpenEdit"
+            data-test="button-edit-address"
+          >
             <span class="visually-hidden">Изменить адрес</span>
           </button>
         </div>
@@ -13,9 +18,13 @@
 
       <p>
         {{ address.street }}, д. {{ address.building }}
-        <template v-if="address.flat"> , оф. {{ address.flat }} </template>
+        <template v-if="address.flat">
+          <span data-test="address-flat">, оф. {{ address.flat }}</span>
+        </template>
       </p>
-      <small v-if="address.comment">{{ address.comment }}</small>
+      <small v-if="address.comment" data-test="address-comment">
+        {{ address.comment }}
+      </small>
     </div>
 
     <profile-form
@@ -24,6 +33,7 @@
       :number="number"
       @close="handleClose"
       @submit="handleEditAddress"
+      data-test="edit-address-form"
     />
   </div>
 </template>
