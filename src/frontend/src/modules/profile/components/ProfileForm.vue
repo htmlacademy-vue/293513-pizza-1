@@ -2,6 +2,7 @@
   <form
     @submit.prevent="$emit('submit', getAddress, resetForm)"
     class="address-form address-form--opened sheet"
+    data-test="add-address"
   >
     <div class="address-form__header">
       <b>Адрес №{{ getNumber }}</b>
@@ -82,6 +83,7 @@
         type="button"
         class="button button--transparent"
         @click="$emit('close', resetForm)"
+        data-test="button-remove-address"
       >
         Удалить
       </button>
