@@ -23,6 +23,7 @@
         class="button button--border"
         @click="handleOpenForm"
         :disabled="isAddNewAddress"
+        data-test="button-new-address"
       >
         Добавить новый адрес
       </button>
