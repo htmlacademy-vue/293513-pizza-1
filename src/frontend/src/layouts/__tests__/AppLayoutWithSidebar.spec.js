@@ -1,19 +1,20 @@
 import { shallowMount } from "@vue/test-utils";
-import AppLayoutDefault from "@/layouts/AppLayoutDefault";
+import AppLayoutWithSidebar from "@/layouts/AppLayoutWithSidebar";
 import AppHeader from "@/layouts/AppHeader";
 
-describe("AppLayoutDefault", () => {
+describe("AppLayoutWithSidebar", () => {
   let wrapper;
   const slots = {
     default: "content",
   };
+  const stubs = ["router-link"];
 
   const createComponent = (options) => {
-    wrapper = shallowMount(AppLayoutDefault, options);
+    wrapper = shallowMount(AppLayoutWithSidebar, options);
   };
 
   beforeEach(() => {
-    createComponent({ slots });
+    createComponent({ stubs, slots });
   });
 
   afterEach(() => {
