@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import Index from "@/views";
+import Index from "../Index";
 
 describe("Index", () => {
   it("Component is rendered", () => {
