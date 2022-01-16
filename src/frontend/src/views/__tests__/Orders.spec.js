@@ -119,7 +119,7 @@ describe("Orders", () => {
 
   it("Displays the correct orders quantity", async () => {
     await localVue.nextTick();
-    const orders = wrapper.findAllComponents(OrderItem);
+    const orders = await wrapper.findAllComponents(OrderItem);
     expect(orders).toHaveLength(ordersData.length);
   });
 });
