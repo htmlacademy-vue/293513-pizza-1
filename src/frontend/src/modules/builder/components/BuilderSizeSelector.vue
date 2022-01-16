@@ -13,6 +13,7 @@
           :value="size.value"
           :checked="size.value === value"
           @change="setSize"
+          data-test="builder-size-pizza"
         >
           <span>{{ size.name }}</span>
         </radio-button>
@@ -22,9 +23,8 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import RadioButton from "@/common/components/RadioButton";
-import { SET_SIZE } from "@/store/mutations-types";
 
 export default {
   name: "BuilderSizeSelector",
@@ -48,9 +48,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations("Builder", {
-      setSize: SET_SIZE,
-    }),
+    ...mapActions("Builder", ["setSize"]),
   },
 };
 </script>

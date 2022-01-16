@@ -103,6 +103,38 @@ export default {
       );
     },
 
+    repeatOrder({ commit }, value) {
+      commit(REPEAT_ORDER, value);
+    },
+
+    decrement({ commit }, value) {
+      commit(DECREMENT_MISC, value);
+    },
+
+    increment({ commit }, value) {
+      commit(INCREMENT_MISC, value);
+    },
+
+    setPhone({ commit }, value) {
+      commit(SET_PHONE, value);
+    },
+
+    setAddress({ commit }, value) {
+      commit(SET_ADDRESS, value);
+    },
+
+    resetCart({ commit }) {
+      commit(SET_ADDRESS);
+    },
+
+    removeOrder({ commit }, value) {
+      commit(REMOVE_ORDER, value);
+    },
+
+    incrementOrder({ commit }, value) {
+      commit(INCREMENT_ORDER, value);
+    },
+
     [ADD_TO_CART]({ rootState, rootGetters, commit, dispatch }) {
       commit(ADD_TO_CART, {
         id: Date.now(),
@@ -119,7 +151,7 @@ export default {
       dispatch("Builder/query", null, { root: true });
     },
 
-    [DECREMENT_ORDER]({ commit }, order) {
+    decrementOrder({ commit }, order) {
       if (order.quantity === 1) {
         commit(REMOVE_ORDER, order);
       } else {

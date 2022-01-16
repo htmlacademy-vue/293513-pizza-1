@@ -24,7 +24,9 @@
     </div>
 
     <p class="order__price">
-      <span v-if="pizza.quantity > 1">{{ pizza.quantity }}x</span>
+      <span v-if="pizza.quantity > 1" data-test="pizza-multiplier">
+        {{ pizza.quantity }}x
+      </span>
       <span>{{ sumPricePizza(pizza) }} ₽</span>
     </p>
   </li>

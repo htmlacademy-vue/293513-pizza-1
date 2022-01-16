@@ -1,12 +1,13 @@
 <template>
   <div class="content__result">
-    <p>Итого: {{ total }} ₽</p>
+    <p data-test="builder-total-sum">Итого: {{ total }} ₽</p>
     <button
       type="button"
       class="button"
       :class="{ 'button--disabled': !disabled }"
       :disabled="disabled"
       @click="addToCart"
+      data-test="builder-button-ready"
     >
       Готовьте!
     </button>

@@ -24,6 +24,7 @@
         type="button"
         class="counter__button counter__button--minus"
         @click="decrementOrder(order)"
+        data-test="cart-decrement-order"
       >
         <span class="visually-hidden">Меньше</span>
       </button>
@@ -40,6 +41,7 @@
         type="button"
         class="counter__button counter__button--plus counter__button--orange"
         @click="incrementOrder(order)"
+        data-test="cart-increment-order"
       >
         <span class="visually-hidden">Больше</span>
       </button>
@@ -50,7 +52,12 @@
     </div>
 
     <div class="cart-list__button">
-      <button type="button" class="cart-list__edit" @click="changePizza">
+      <button
+        type="button"
+        class="cart-list__edit"
+        @click="changePizza"
+        data-test="cart-change-order"
+      >
         Изменить
       </button>
     </div>
@@ -60,13 +67,7 @@
 <script>
 import { pizzaSizeNumber } from "@/common/enums/pizzasSize";
 import { SAUCES_TYPE } from "@/common/constants";
-import { mapActions, mapMutations } from "vuex";
-import {
-  CHANGE_BUILDER,
-  DECREMENT_ORDER,
-  INCREMENT_ORDER,
-  REMOVE_ORDER,
-} from "@/store/mutations-types";
+import { mapActions } from "vuex";
 
 export default {
   name: "CartOrderItem",
@@ -108,18 +109,8 @@ export default {
   },
 
   methods: {
-    ...mapMutations("Builder", {
-      changeBuilder: CHANGE_BUILDER,
-    }),
-
-    ...mapMutations("Cart", {
-      removeOrder: REMOVE_ORDER,
-      incrementOrder: INCREMENT_ORDER,
-    }),
-
-    ...mapActions("Cart", {
-      decrementOrder: DECREMENT_ORDER,
-    }),
+    ...mapActions("Builder", ["changeBuilder"]),
+    ...mapActions("Cart", ["decrementOrder", "removeOrder", "incrementOrder"]),
 
     changePizza() {
       this.changeBuilder(this.order);

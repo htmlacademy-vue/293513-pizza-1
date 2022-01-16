@@ -45,6 +45,30 @@ export default {
         sauces: sauces.map(normalizeSauce),
       });
     },
+
+    setDough({ commit }, value) {
+      commit(SET_DOUGH, value);
+    },
+
+    setSauce({ commit }, value) {
+      commit(SET_SAUCE, value);
+    },
+
+    changeCountIngredient({ commit }, value) {
+      commit(CHANGE_COUNT_INGREDIENT, value);
+    },
+
+    setNamePizza({ commit }, value) {
+      commit(SET_NAME_PIZZA, value);
+    },
+
+    setSize({ commit }, value) {
+      commit(SET_SIZE, value);
+    },
+
+    changeBuilder({ commit }, value) {
+      commit(CHANGE_BUILDER, value);
+    },
   },
 
   mutations: {

@@ -5,6 +5,7 @@
         v-for="additional in misc"
         :key="additional.id"
         :additional="additional"
+        data-test="cart-additional-item"
       />
     </ul>
   </div>

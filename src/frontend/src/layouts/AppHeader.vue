@@ -14,7 +14,12 @@
       <router-link to="/cart">{{ total }} ₽</router-link>
     </div>
     <div class="header__user">
-      <router-link to="/login" class="header__login" v-if="!isAuthenticated">
+      <router-link
+        to="/login"
+        class="header__login"
+        v-if="!isAuthenticated"
+        data-test="login"
+      >
         <span>Войти</span>
       </router-link>
 
@@ -24,7 +29,12 @@
           <span>{{ user.name }}</span>
         </router-link>
 
-        <a href="#" class="header__logout" @click.prevent="$logout">
+        <a
+          href="#"
+          class="header__logout"
+          @click.prevent="$logout"
+          data-test="logout"
+        >
           <span>Выйти</span>
         </a>
       </template>
