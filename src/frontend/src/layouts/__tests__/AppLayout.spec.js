@@ -24,7 +24,7 @@ describe("AppLayout", () => {
     wrapper.destroy();
   });
 
-  test("Should render slot content", () => {
+  it("Should render slot content", () => {
     expect(wrapper.exists()).toBeTruthy();
   });
 });
