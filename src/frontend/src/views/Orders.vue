@@ -15,10 +15,13 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import OrderItem from "@/modules/orders/components/OrderItem";
+import { auth } from "@/middlewares";
 
 export default {
   name: "Orders",
+  layout: "AppLayoutWithSidebar",
   components: { OrderItem },
+  middlewares: [auth],
   computed: {
     ...mapState("Orders", ["orders"]),
   },

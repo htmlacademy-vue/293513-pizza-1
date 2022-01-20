@@ -124,7 +124,7 @@ export default {
     },
 
     resetCart({ commit }) {
-      commit(SET_ADDRESS);
+      commit(RESET_CART);
     },
 
     removeOrder({ commit }, value) {

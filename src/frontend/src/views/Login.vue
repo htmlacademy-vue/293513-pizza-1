@@ -50,8 +50,11 @@
 </template>
 
 <script>
+import { isLoggedIn } from "@/middlewares";
+
 export default {
   name: "Login",
+  middlewares: [isLoggedIn],
   data() {
     return {
       email: "",
