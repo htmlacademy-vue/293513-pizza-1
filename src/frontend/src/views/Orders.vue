@@ -21,7 +21,7 @@ export default {
   name: "Orders",
   layout: "AppLayoutWithSidebar",
   components: { OrderItem },
-  middlewares: { auth },
+  middlewares: [auth],
   computed: {
     ...mapState("Orders", ["orders"]),
   },

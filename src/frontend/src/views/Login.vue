@@ -54,7 +54,7 @@ import { isLoggedIn } from "@/middlewares";
 
 export default {
   name: "Login",
-  middlewares: { isLoggedIn },
+  middlewares: [isLoggedIn],
   data() {
     return {
       email: "",

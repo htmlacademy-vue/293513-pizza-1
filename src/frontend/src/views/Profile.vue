@@ -42,7 +42,7 @@ export default {
   name: "Profile",
   layout: "AppLayoutWithSidebar",
   components: { ProfileAddress, ProfileForm, ProfileUser },
-  middlewares: { auth },
+  middlewares: [auth],
   data() {
     return {
       isAddNewAddress: false,
