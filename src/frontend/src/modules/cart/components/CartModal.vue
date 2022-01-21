@@ -1,8 +1,21 @@
 <template>
-  <transition name="fade" mode="out-in" appear>
-    <div class="backdrop" @click="handleClose">
-      <div class="popup" @click.stop>
-        <button class="close btn-close" @click="handleClose">
+  <transition
+    name="fade"
+    mode="out-in"
+    appear
+  >
+    <div
+      class="backdrop"
+      @click="handleClose"
+    >
+      <div
+        class="popup"
+        @click.stop
+      >
+        <button
+          class="close btn-close"
+          @click="handleClose"
+        >
           <span class="visually-hidden">Закрыть попап</span>
         </button>
 
@@ -16,8 +29,8 @@
           <a
             href="#"
             class="button"
-            @click.prevent="handleClose"
             data-test="cart-ready"
+            @click.prevent="handleClose"
           >
             Отлично, я жду!
           </a>
@@ -38,9 +51,11 @@ export default {
       required: true,
     },
   },
+
   computed: {
     ...mapState("Auth", ["isAuthenticated"]),
   },
+
   methods: {
     ...mapActions("Cart", ["resetCart"]),
 

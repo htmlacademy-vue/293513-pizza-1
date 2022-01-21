@@ -15,9 +15,9 @@
         <button
           type="button"
           class="counter__button counter__button--minus"
-          @click="decrement(additional)"
           :disabled="!additional.quantity"
           data-test="button-additional-decrement"
+          @click="decrement(additional)"
         >
           <span class="visually-hidden">Меньше</span>
         </button>
@@ -33,8 +33,8 @@
         <button
           type="button"
           class="counter__button counter__button--plus counter__button--orange"
-          @click="increment(additional)"
           data-test="button-additional-increment"
+          @click="increment(additional)"
         >
           <span class="visually-hidden">Больше</span>
         </button>
@@ -58,8 +58,13 @@ export default {
       required: true,
     },
   },
+
   methods: {
     ...mapActions("Cart", ["increment", "decrement"]),
   },
 };
 </script>
+
+<style lang="scss">
+@import "~@/assets/scss/blocks/additional-list.scss";
+</style>

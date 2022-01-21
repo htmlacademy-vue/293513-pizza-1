@@ -20,11 +20,13 @@ export default {
       type: Object,
       required: true,
     },
+
     draggable: {
       type: Boolean,
       default: true,
     },
   },
+
   methods: {
     onDrag({ dataTransfer }) {
       dataTransfer.effectAllowed = MOVE;
@@ -34,6 +36,7 @@ export default {
         JSON.stringify(this.transferData)
       );
     },
+
     onChangeCursor() {
       this.isActive = !this.isActive;
     },

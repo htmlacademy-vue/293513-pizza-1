@@ -31,18 +31,24 @@
 
 <script>
 export default {
-  name: "ItemCounter",
+  name: "AppItemCounter",
   props: {
     value: {
       type: Number,
       default: 0,
     },
+
     min: {
       type: Number,
     },
+
     max: {
       type: Number,
     },
   },
 };
 </script>
+<style lang="scss">
+@import "~@/assets/scss/blocks/button.scss";
+@import "~@/assets/scss/blocks/counter.scss";
+</style>

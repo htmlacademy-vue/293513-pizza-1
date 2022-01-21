@@ -1,11 +1,17 @@
 <template>
   <li>
-    <img :src="getMisc.image" width="20" height="30" :alt="getMisc.name" />
+    <img
+      :src="getMisc.image"
+      width="20"
+      height="30"
+      :alt="getMisc.name"
+    />
 
     <p>
       <span>{{ getMisc.name }}</span>
       <b>
-        <span v-if="misc.quantity > 1" data-test="misc-multiplier">
+        <span v-if="misc.quantity > 1"
+data-test="misc-multiplier">
           {{ misc.quantity }}x
         </span>
         <span>{{ getMisc.price }} ₽</span>

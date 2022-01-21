@@ -1,7 +1,10 @@
 <template>
   <section class="footer">
     <div class="footer__more">
-      <router-link to="/" class="button button--border button--arrow">
+      <router-link
+        to="/"
+        class="button button--border button--arrow"
+      >
         Хочу еще одну
       </router-link>
     </div>
@@ -15,7 +18,10 @@
     </div>
 
     <div class="footer__submit">
-      <button type="submit" class="button">Оформить заказ</button>
+      <button
+        type="submit"
+        class="button"
+      >Оформить заказ</button>
     </div>
   </section>
 </template>
@@ -30,3 +36,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import "~@/assets/scss/blocks/footer.scss";
+</style>

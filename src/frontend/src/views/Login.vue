@@ -4,8 +4,8 @@
       <a
         href="#"
         class="close close--white"
-        @click.prevent="$router.back"
         data-test="btn-close"
+        @click.prevent="$router.back"
       >
         <span class="visually-hidden">Закрыть форму авторизации</span>
       </a>
@@ -43,7 +43,10 @@
             />
           </label>
         </div>
-        <button type="submit" class="button">Авторизоваться</button>
+        <button
+          type="submit"
+          class="button"
+        >Авторизоваться</button>
       </form>
     </div>
   </div>
@@ -61,9 +64,11 @@ export default {
       password: "",
     };
   },
+
   mounted() {
     this.$refs.email.focus();
   },
+
   methods: {
     async login() {
       await this.$store.dispatch("Auth/login", {

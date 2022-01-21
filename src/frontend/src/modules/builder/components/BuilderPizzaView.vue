@@ -7,8 +7,8 @@
         name="pizza_name"
         placeholder="Введите название пиццы"
         :value="name"
-        @input="setNamePizza($event.target.value)"
         data-test="builder-input-name"
+        @input="setNamePizza($event.target.value)"
       />
     </label>
 
@@ -27,7 +27,10 @@
           data-test="builder-pizza-view"
         >
           <div class="pizza__wrapper">
-            <transition-group name="drop" mode="out-in">
+            <transition-group
+              name="drop"
+              mode="out-in"
+            >
               <template v-for="ingredient in selectedIngredients">
                 <div
                   :key="ingredient.id"
@@ -84,6 +87,7 @@ export default {
       return "big";
     },
   },
+
   methods: {
     ...mapActions("Builder", ["setNamePizza", "changeCountIngredient"]),
   },
@@ -91,6 +95,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/scss/blocks/pizza.scss";
 .drop-enter-active {
   animation: drop 500ms;
 }

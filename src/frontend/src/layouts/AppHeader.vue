@@ -1,7 +1,10 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <router-link to="/" class="logo">
+      <router-link
+        to="/"
+        class="logo"
+      >
         <img
           src="@/assets/img/logo.svg"
           alt="V!U!E! Pizza logo"
@@ -15,9 +18,9 @@
     </div>
     <div class="header__user">
       <router-link
+        v-if="!isAuthenticated"
         to="/login"
         class="header__login"
-        v-if="!isAuthenticated"
         data-test="login"
       >
         <span>Войти</span>
@@ -25,15 +28,20 @@
 
       <template v-else>
         <router-link to="/orders">
-          <img :src="user.avatar" :alt="user.name" width="32" height="32" />
+          <img
+            :src="user.avatar"
+            :alt="user.name"
+            width="32"
+            height="32"
+          />
           <span>{{ user.name }}</span>
         </router-link>
 
         <a
           href="#"
           class="header__logout"
-          @click.prevent="$logout"
           data-test="logout"
+          @click.prevent="$logout"
         >
           <span>Выйти</span>
         </a>

@@ -5,7 +5,11 @@
     </div>
 
     <template v-if="orders.length">
-      <order-item v-for="order of orders" :order="order" :key="order.id" />
+      <order-item
+        v-for="order of orders"
+        :order="order"
+        :key="order.id"
+      />
     </template>
 
     <p v-else>Вы не сделали ещё ни одного заказа.</p>
@@ -25,10 +29,12 @@ export default {
   computed: {
     ...mapState("Orders", ["orders"]),
   },
+
   methods: {
     ...mapActions("Orders", ["getOrders"]),
     ...mapActions("Addresses", ["getAddresses"]),
   },
+
   mounted() {
     this.getOrders();
     this.getAddresses();

@@ -23,8 +23,8 @@
       <button
         type="button"
         class="counter__button counter__button--minus"
-        @click="decrementOrder(order)"
         data-test="cart-decrement-order"
+        @click="decrementOrder(order)"
       >
         <span class="visually-hidden">Меньше</span>
       </button>
@@ -40,8 +40,8 @@
       <button
         type="button"
         class="counter__button counter__button--plus counter__button--orange"
-        @click="incrementOrder(order)"
         data-test="cart-increment-order"
+        @click="incrementOrder(order)"
       >
         <span class="visually-hidden">Больше</span>
       </button>
@@ -55,8 +55,8 @@
       <button
         type="button"
         class="cart-list__edit"
-        @click="changePizza"
         data-test="cart-change-order"
+        @click="changePizza"
       >
         Изменить
       </button>
@@ -120,3 +120,8 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import "~@/assets/scss/blocks/cart-list.scss";
+@import "~@/assets/scss/blocks/product.scss";
+</style>

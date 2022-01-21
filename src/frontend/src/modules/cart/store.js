@@ -123,8 +123,9 @@ export default {
       commit(SET_ADDRESS, value);
     },
 
-    resetCart({ commit }) {
+    async resetCart({ commit, dispatch }) {
       commit(RESET_CART);
+      dispatch("getMisc");
     },
 
     removeOrder({ commit }, value) {

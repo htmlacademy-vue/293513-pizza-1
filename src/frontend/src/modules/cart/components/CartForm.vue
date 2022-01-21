@@ -4,7 +4,11 @@
       <label class="cart-form__select">
         <span class="cart-form__label">Получение заказа:</span>
 
-        <select class="select" v-model="delivery" data-test="cart-delivery">
+        <select
+          v-model="delivery"
+          class="select"
+          data-test="cart-delivery"
+        >
           <option :value="1">Заберу сам</option>
           <option :value="2">Новый адрес</option>
           <template v-if="addresses.length">
@@ -26,15 +30,15 @@
           type="tel"
           name="tel"
           placeholder="+7 999-999-99-99"
-          @input="setPhone(phone)"
           required
           data-test="cart-phone"
+          @input="setPhone(phone)"
         />
       </label>
 
       <div
-        class="cart-form__address"
         v-if="delivery !== 1"
+        class="cart-form__address"
         data-test="cart-address-form"
       >
         <span class="cart-form__label">Новый адрес:</span>
@@ -46,10 +50,10 @@
               v-model="address.street"
               type="text"
               name="street"
-              @input="setAddress({ field: 'street', value: address.street })"
               :disabled="disabledInput"
               required
               data-test="cart-address-street"
+              @input="setAddress({ field: 'street', value: address.street })"
             />
           </label>
         </div>
@@ -61,12 +65,12 @@
               v-model="address.building"
               type="text"
               name="house"
-              @input="
-                setAddress({ field: 'building', value: address.building })
-              "
               :disabled="disabledInput"
               required
               data-test="cart-address-house"
+              @input="
+                setAddress({ field: 'building', value: address.building })
+              "
             />
           </label>
         </div>
@@ -78,9 +82,9 @@
               v-model="address.flat"
               type="text"
               name="apartment"
-              @input="setAddress({ field: 'flat', value: address.flat })"
               :disabled="disabledInput"
               data-test="cart-address-flat"
+              @input="setAddress({ field: 'flat', value: address.flat })"
             />
           </label>
         </div>
@@ -105,6 +109,7 @@ export default {
       },
     };
   },
+
   computed: {
     ...mapState("Addresses", ["addresses"]),
     ...mapGetters("Addresses", ["getAddress"]),
@@ -113,6 +118,7 @@ export default {
       return typeof this.delivery === "string";
     },
   },
+
   watch: {
     delivery() {
       if (typeof this.delivery === "string") {
@@ -141,8 +147,13 @@ export default {
       }
     },
   },
+
   methods: {
     ...mapActions("Cart", ["addAddress", "setPhone", "setAddress"]),
   },
 };
 </script>
+
+<style lang="scss">
+@import "~@/assets/scss/blocks/cart-form.scss";
+</style>

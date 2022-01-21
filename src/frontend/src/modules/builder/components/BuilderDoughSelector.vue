@@ -4,7 +4,7 @@
       <h2 class="title title--small sheet__title">Выберите тесто</h2>
 
       <div class="sheet__content dough">
-        <radio-button
+        <app-radio-button
           v-for="dough in doughList"
           :key="dough.id"
           class="dough__input"
@@ -12,12 +12,12 @@
           name="dough"
           :value="dough.value"
           :checked="dough.value === value"
-          @change="setDough"
           data-test="dough-radio-button"
+          @change="setDough"
         >
           <b>{{ dough.name }}</b>
           <span>{{ dough.description }}</span>
-        </radio-button>
+        </app-radio-button>
       </div>
     </div>
   </div>
@@ -25,21 +25,27 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import RadioButton from "@/common/components/RadioButton";
+import AppRadioButton from "@/common/components/AppRadioButton";
 
 export default {
   name: "BuilderDoughSelector",
   components: {
-    RadioButton,
+    AppRadioButton,
   },
+
   computed: {
     ...mapState("Builder", {
       doughList: "doughList",
       value: "dough",
     }),
   },
+
   methods: {
     ...mapActions("Builder", ["setDough"]),
   },
 };
 </script>
+
+<style lang="scss">
+@import "~@/assets/scss/blocks/dough.scss";
+</style>

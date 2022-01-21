@@ -1,6 +1,10 @@
 <template>
   <div class="main">
-    <img class="loader" src="@/assets/img/product.svg" alt="pizza" />
+    <img
+      class="loader"
+      src="@/assets/img/product.svg"
+      alt="pizza"
+    />
   </div>
 </template>
 

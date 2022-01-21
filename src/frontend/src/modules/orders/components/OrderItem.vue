@@ -13,8 +13,8 @@
         <button
           type="button"
           class="button button--border"
-          @click="removeOrder(order)"
           data-test="button-remove-order"
+          @click="removeOrder(order)"
         >
           Удалить
         </button>
@@ -24,8 +24,8 @@
         <button
           type="button"
           class="button"
-          @click="handleRepeatOrder"
           data-test="button-repeat-order"
+          @click="handleRepeatOrder"
         >
           Повторить
         </button>
@@ -40,7 +40,10 @@
       />
     </ul>
 
-    <ul class="order__additional" v-if="order.orderMisc">
+    <ul
+      v-if="order.orderMisc"
+      class="order__additional"
+    >
       <order-item-misc
         v-for="misc in order.orderMisc"
         :key="misc.id"
@@ -48,7 +51,10 @@
       />
     </ul>
 
-    <p class="order__address" v-if="order.addressId">
+    <p
+      v-if="order.addressId"
+      class="order__address"
+    >
       Адрес доставки: {{ order.orderAddress.name }}
     </p>
   </section>
@@ -68,6 +74,7 @@ export default {
       required: true,
     },
   },
+
   computed: {
     ...mapGetters("Orders", ["sumPricePizza", "sumPriceMisc"]),
     ...mapState("Builder", ["doughList", "sauces", "sizes", "ingredients"]),
@@ -84,6 +91,7 @@ export default {
       return sumPizza + sumMisc;
     },
   },
+
   methods: {
     ...mapActions("Cart", ["repeatOrder"]),
     ...mapActions("Orders", ["removeOrder"]),
@@ -139,3 +147,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import "~@/assets/scss/blocks/order.scss";
+</style>

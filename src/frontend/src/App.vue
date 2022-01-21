@@ -1,26 +1,30 @@
 <template>
   <div id="app">
     <app-layout v-if="!isLoading">
-      <transition name="slide" mode="out-in" appear>
+      <transition
+        name="slide"
+        mode="out-in"
+        appear
+      >
         <router-view />
       </transition>
     </app-layout>
 
     <app-start-loader v-else />
 
-    <notifications />
+    <app-notifications />
   </div>
 </template>
 
 <script>
 import AppLayout from "@/layouts/AppLayout";
 import AppStartLoader from "@/common/components/AppStartLoader";
-import Notifications from "@/common/components/Notifications";
+import AppNotifications from "@/common/components/AppNotifications";
 import { setAuth } from "@/common/helpers";
 
 export default {
   name: "App",
-  components: { Notifications, AppStartLoader, AppLayout },
+  components: { AppNotifications, AppStartLoader, AppLayout },
   created() {
     if (this.$jwt.getToken()) {
       setAuth(this.$store);
@@ -29,6 +33,7 @@ export default {
     this.$store.dispatch("init");
     this.$store.dispatch("Cart/getMisc");
   },
+
   computed: {
     isLoading() {
       return this.$store.state.isLoading;
