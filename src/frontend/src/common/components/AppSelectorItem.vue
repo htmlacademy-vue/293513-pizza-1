@@ -1,5 +1,8 @@
 <template>
-  <span class="filling" :class="`filling--${value}`">
+  <span
+    class="filling"
+    :class="`filling--${value}`"
+  >
     <slot />
   </span>
 </template>

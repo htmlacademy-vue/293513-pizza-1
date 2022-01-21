@@ -1,14 +1,17 @@
 <template>
-  <ul class="container" v-if="notifications.length">
+  <ul
+    v-if="notifications.length"
+    class="container"
+  >
     <li
+      v-for="notification in notifications"
+      :key="notification.id"
       class="notification"
       :class="{
         error: notification.type === 'error',
         success: notification.type === 'success',
         warning: notification.type === 'warning',
       }"
-      v-for="notification in notifications"
-      :key="notification.id"
     >
       {{ notification.text }}
     </li>

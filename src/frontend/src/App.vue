@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <app-layout v-if="!isLoading">
-      <transition name="slide" mode="out-in" appear>
+      <transition
+        name="slide"
+        mode="out-in"
+        appear
+      >
         <router-view />
       </transition>
     </app-layout>
@@ -29,6 +33,7 @@ export default {
     this.$store.dispatch("init");
     this.$store.dispatch("Cart/getMisc");
   },
+
   computed: {
     isLoading() {
       return this.$store.state.isLoading;

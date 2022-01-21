@@ -6,8 +6,8 @@
       class="button"
       :class="{ 'button--disabled': !disabled }"
       :disabled="disabled"
-      @click="addToCart"
       data-test="builder-button-ready"
+      @click="addToCart"
     >
       Готовьте!
     </button>
@@ -34,6 +34,7 @@ export default {
       sauce: "sauce",
     }),
   },
+
   methods: {
     ...mapActions("Cart", {
       addToCart: ADD_TO_CART,

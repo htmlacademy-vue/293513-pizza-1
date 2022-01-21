@@ -1,6 +1,11 @@
 <template>
   <div class="user">
-    <img :src="user.avatar" :alt="user.name" width="72" height="72" />
+    <img
+      :src="user.avatar"
+      :alt="user.name"
+      width="72"
+      height="72"
+    />
 
     <div class="user__name">
       <span>{{ user.name }}</span>

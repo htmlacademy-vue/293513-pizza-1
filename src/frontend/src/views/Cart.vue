@@ -1,8 +1,8 @@
 <template>
   <form
     class="layout-form"
-    @submit.prevent="handleSubmit"
     data-test="cart-form"
+    @submit.prevent="handleSubmit"
   >
     <main class="content cart">
       <div class="container">
@@ -30,7 +30,10 @@
 
     <cart-footer v-if="!isEmptyCart" />
 
-    <cart-modal v-if="isOpen" :close="handleClose" />
+    <cart-modal
+      v-if="isOpen"
+      :close="handleClose"
+    />
   </form>
 </template>
 
@@ -51,21 +54,25 @@ export default {
     CartOrdersList,
     CartModal,
   },
+
   data() {
     return {
       isOpen: false,
     };
   },
+
   computed: {
     ...mapState("Cart", {
       cart: "cart",
     }),
+
     ...mapState("Auth", ["isAuthenticated"]),
 
     isEmptyCart() {
       return !this.cart.length;
     },
   },
+
   methods: {
     ...mapActions("Addresses", ["getAddresses"]),
 
@@ -78,6 +85,7 @@ export default {
       this.isOpen = false;
     },
   },
+
   mounted() {
     if (this.isAuthenticated) {
       this.getAddresses();

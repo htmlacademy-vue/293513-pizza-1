@@ -12,8 +12,8 @@
           name="diameter"
           :value="size.value"
           :checked="size.value === value"
-          @change="setSize"
           data-test="builder-size-pizza"
+          @change="setSize"
         >
           <span>{{ size.name }}</span>
         </app-radio-button>
@@ -31,6 +31,7 @@ export default {
   components: {
     AppRadioButton,
   },
+
   computed: {
     ...mapState("Builder", {
       sizes: "sizes",
@@ -47,6 +48,7 @@ export default {
       return clone;
     },
   },
+
   methods: {
     ...mapActions("Builder", ["setSize"]),
   },

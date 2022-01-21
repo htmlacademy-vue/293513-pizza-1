@@ -8,14 +8,14 @@
           <p>Основной соус:</p>
 
           <app-radio-button
-            class="radio ingredients__input"
-            name="sauce"
             v-for="sauceItem in sauces"
             :key="sauceItem.id"
+            class="radio ingredients__input"
+            name="sauce"
             :value="sauceItem.value"
             :checked="sauceItem.value === valueSauce"
-            @change="setSauce"
             data-test="sauces-radio-button"
+            @change="setSauce"
           >
             <span>{{ sauceItem.name }}</span>
           </app-radio-button>
@@ -26,9 +26,9 @@
 
           <ul class="ingredients__list">
             <li
-              class="ingredients__item"
               v-for="ingredient in ingredients"
               :key="ingredient.id"
+              class="ingredients__item"
             >
               <app-drag
                 :draggable="ingredient.count < 3"
@@ -44,13 +44,13 @@
                 :value="ingredient.count"
                 :min="0"
                 :max="3"
+                data-test="ingredient-counter"
                 @input="
                   changeCountIngredient({
                     value: ingredient.value,
                     count: $event,
                   })
                 "
-                data-test="ingredient-counter"
               />
             </li>
           </ul>
@@ -75,6 +75,7 @@ export default {
     AppSelectorItem,
     AppItemCounter,
   },
+
   computed: {
     ...mapState("Builder", {
       sauces: "sauces",
@@ -82,6 +83,7 @@ export default {
       ingredients: "ingredients",
     }),
   },
+
   methods: {
     ...mapActions("Builder", ["setSauce", "changeCountIngredient"]),
   },

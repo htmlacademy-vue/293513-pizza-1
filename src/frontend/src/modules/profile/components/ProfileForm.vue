@@ -1,8 +1,8 @@
 <template>
   <form
-    @submit.prevent="$emit('submit', getAddress, resetForm)"
     class="address-form address-form--opened sheet"
     data-test="add-address"
+    @submit.prevent="$emit('submit', getAddress, resetForm)"
   >
     <div class="address-form__header">
       <b>Адрес №{{ getNumber }}</b>
@@ -82,13 +82,16 @@
       <button
         type="button"
         class="button button--transparent"
-        @click="$emit('close', resetForm)"
         data-test="button-remove-address"
+        @click="$emit('close', resetForm)"
       >
         Удалить
       </button>
 
-      <button type="submit" class="button">Сохранить</button>
+      <button
+        type="submit"
+        class="button"
+      >Сохранить</button>
     </div>
   </form>
 </template>
@@ -103,10 +106,12 @@ export default {
       type: Object,
       defaults: {},
     },
+
     number: {
       type: Number,
     },
   },
+
   data() {
     return {
       name: this.address?.name || "",
@@ -116,6 +121,7 @@ export default {
       comment: this.address?.comment || "",
     };
   },
+
   computed: {
     ...mapState("Addresses", ["addresses"]),
     ...mapState("Auth", ["user"]),
@@ -141,6 +147,7 @@ export default {
       return data;
     },
   },
+
   methods: {
     ...mapActions("Addresses", ["addAddress"]),
 

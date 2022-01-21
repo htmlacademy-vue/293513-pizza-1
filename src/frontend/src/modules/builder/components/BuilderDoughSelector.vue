@@ -12,8 +12,8 @@
           name="dough"
           :value="dough.value"
           :checked="dough.value === value"
-          @change="setDough"
           data-test="dough-radio-button"
+          @change="setDough"
         >
           <b>{{ dough.name }}</b>
           <span>{{ dough.description }}</span>
@@ -32,12 +32,14 @@ export default {
   components: {
     AppRadioButton,
   },
+
   computed: {
     ...mapState("Builder", {
       doughList: "doughList",
       value: "dough",
     }),
   },
+
   methods: {
     ...mapActions("Builder", ["setDough"]),
   },

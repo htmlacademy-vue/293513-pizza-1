@@ -7,23 +7,29 @@
     <profile-user />
 
     <profile-address
-      :address="address"
       v-for="(address, index) in addresses"
       :key="address.id"
+      :address="address"
       :number="index + 1"
     />
 
-    <div class="layout__address" v-if="isAddNewAddress">
-      <profile-form @close="handleCloseForm" @submit="handleAddAddress" />
+    <div
+      v-if="isAddNewAddress"
+      class="layout__address"
+    >
+      <profile-form
+        @close="handleCloseForm"
+        @submit="handleAddAddress"
+      />
     </div>
 
     <div class="layout__button">
       <button
         type="button"
         class="button button--border"
-        @click="handleOpenForm"
         :disabled="isAddNewAddress"
         data-test="button-new-address"
+        @click="handleOpenForm"
       >
         Добавить новый адрес
       </button>
@@ -48,9 +54,11 @@ export default {
       isAddNewAddress: false,
     };
   },
+
   computed: {
     ...mapState("Addresses", ["addresses"]),
   },
+
   methods: {
     ...mapActions("Addresses", ["getAddresses", "addAddress"]),
 
@@ -69,6 +77,7 @@ export default {
       this.isAddNewAddress = false;
     },
   },
+
   mounted() {
     this.getAddresses();
   },

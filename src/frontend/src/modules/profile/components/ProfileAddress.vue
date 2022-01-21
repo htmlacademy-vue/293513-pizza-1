@@ -1,6 +1,9 @@
 <template>
   <div class="layout__address">
-    <div class="sheet address-form" v-if="!isEdit">
+    <div
+      v-if="!isEdit"
+      class="sheet address-form"
+    >
       <div class="address-form__header">
         <b>Адрес №{{ number }}. {{ address.name }}</b>
 
@@ -8,8 +11,8 @@
           <button
             type="button"
             class="icon"
-            @click="handleOpenEdit"
             data-test="button-edit-address"
+            @click="handleOpenEdit"
           >
             <span class="visually-hidden">Изменить адрес</span>
           </button>
@@ -22,7 +25,10 @@
           <span data-test="address-flat">, оф. {{ address.flat }}</span>
         </template>
       </p>
-      <small v-if="address.comment" data-test="address-comment">
+      <small
+        v-if="address.comment"
+        data-test="address-comment"
+      >
         {{ address.comment }}
       </small>
     </div>
@@ -31,9 +37,9 @@
       v-else
       :address="address"
       :number="number"
+      data-test="edit-address-form"
       @close="handleClose"
       @submit="handleEditAddress"
-      data-test="edit-address-form"
     />
   </div>
 </template>
@@ -50,16 +56,19 @@ export default {
       type: Object,
       required: true,
     },
+
     number: {
       type: Number,
       required: true,
     },
   },
+
   data() {
     return {
       isEdit: false,
     };
   },
+
   methods: {
     ...mapActions("Addresses", ["deleteAddress", "editAddress"]),
 

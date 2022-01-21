@@ -24,7 +24,10 @@
     </div>
 
     <p class="order__price">
-      <span v-if="pizza.quantity > 1" data-test="pizza-multiplier">
+      <span
+        v-if="pizza.quantity > 1"
+        data-test="pizza-multiplier"
+      >
         {{ pizza.quantity }}x
       </span>
       <span>{{ sumPricePizza(pizza) }} ₽</span>
@@ -43,6 +46,7 @@ export default {
       required: true,
     },
   },
+
   computed: {
     ...mapState("Builder", ["sizes", "doughList", "sauces", "ingredients"]),
     ...mapGetters("Orders", ["sumPricePizza"]),
