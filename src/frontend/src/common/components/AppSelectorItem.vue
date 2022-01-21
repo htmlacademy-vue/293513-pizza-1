@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "SelectorItem",
+  name: "AppSelectorItem",
   props: {
     value: String,
   },

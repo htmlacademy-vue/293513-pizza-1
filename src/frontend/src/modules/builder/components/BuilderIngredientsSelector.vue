@@ -7,7 +7,7 @@
         <div class="ingredients__sauce">
           <p>Основной соус:</p>
 
-          <radio-button
+          <app-radio-button
             class="radio ingredients__input"
             name="sauce"
             v-for="sauceItem in sauces"
@@ -18,7 +18,7 @@
             data-test="sauces-radio-button"
           >
             <span>{{ sauceItem.name }}</span>
-          </radio-button>
+          </app-radio-button>
         </div>
 
         <div class="ingredients__filling">
@@ -34,12 +34,12 @@
                 :draggable="ingredient.count < 3"
                 :transfer-data="ingredient"
               >
-                <selector-item :value="ingredient.value">
+                <app-selector-item :value="ingredient.value">
                   {{ ingredient.name }}
-                </selector-item>
+                </app-selector-item>
               </app-drag>
 
-              <item-counter
+              <app-item-counter
                 class="ingredients__counter"
                 :value="ingredient.count"
                 :min="0"
@@ -62,18 +62,18 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import RadioButton from "@/common/components/RadioButton";
-import SelectorItem from "@/common/components/SelectorItem";
-import ItemCounter from "@/common/components/ItemCounter";
+import AppRadioButton from "@/common/components/AppRadioButton";
+import AppSelectorItem from "@/common/components/AppSelectorItem";
+import AppItemCounter from "@/common/components/AppItemCounter";
 import AppDrag from "@/common/components/AppDrag";
 
 export default {
   name: "BuilderIngredientsSelector",
   components: {
     AppDrag,
-    RadioButton,
-    SelectorItem,
-    ItemCounter,
+    AppRadioButton,
+    AppSelectorItem,
+    AppItemCounter,
   },
   computed: {
     ...mapState("Builder", {

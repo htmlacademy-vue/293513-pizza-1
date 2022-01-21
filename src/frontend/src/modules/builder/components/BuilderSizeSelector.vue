@@ -4,7 +4,7 @@
       <h2 class="title title--small sheet__title">Выберите размер</h2>
 
       <div class="sheet__content diameter">
-        <radio-button
+        <app-radio-button
           v-for="size in sortedSizes"
           :key="size.id"
           class="diameter__input"
@@ -16,7 +16,7 @@
           data-test="builder-size-pizza"
         >
           <span>{{ size.name }}</span>
-        </radio-button>
+        </app-radio-button>
       </div>
     </div>
   </div>
@@ -24,12 +24,12 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import RadioButton from "@/common/components/RadioButton";
+import AppRadioButton from "@/common/components/AppRadioButton";
 
 export default {
   name: "BuilderSizeSelector",
   components: {
-    RadioButton,
+    AppRadioButton,
   },
   computed: {
     ...mapState("Builder", {

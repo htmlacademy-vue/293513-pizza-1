@@ -1,7 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
-import Notifications from "@/common/components/Notifications";
+import AppNotifications from "@/common/components/AppNotifications";
 
-describe("Notifications", () => {
+describe("AppNotifications", () => {
   const mocks = {
     $store: {
       state: {
@@ -12,7 +12,7 @@ describe("Notifications", () => {
 
   let wrapper;
   const createComponent = (options) => {
-    wrapper = shallowMount(Notifications, options);
+    wrapper = shallowMount(AppNotifications, options);
   };
 
   afterEach(() => {

@@ -8,19 +8,19 @@
 
     <app-start-loader v-else />
 
-    <notifications />
+    <app-notifications />
   </div>
 </template>
 
 <script>
 import AppLayout from "@/layouts/AppLayout";
 import AppStartLoader from "@/common/components/AppStartLoader";
-import Notifications from "@/common/components/Notifications";
+import AppNotifications from "@/common/components/AppNotifications";
 import { setAuth } from "@/common/helpers";
 
 export default {
   name: "App",
-  components: { Notifications, AppStartLoader, AppLayout },
+  components: { AppNotifications, AppStartLoader, AppLayout },
   created() {
     if (this.$jwt.getToken()) {
       setAuth(this.$store);
