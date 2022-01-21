@@ -22,3 +22,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import "~@/assets/scss/blocks/user.scss";
+</style>

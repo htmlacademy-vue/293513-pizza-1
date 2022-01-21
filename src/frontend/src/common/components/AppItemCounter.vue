@@ -46,3 +46,7 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+@import "~@/assets/scss/blocks/button.scss";
+@import "~@/assets/scss/blocks/counter.scss";
+</style>

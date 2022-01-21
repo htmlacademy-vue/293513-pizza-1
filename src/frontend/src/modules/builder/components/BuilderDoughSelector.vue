@@ -43,3 +43,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import "~@/assets/scss/blocks/dough.scss";
+</style>

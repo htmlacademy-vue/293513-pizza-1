@@ -154,3 +154,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import "~@/assets/scss/blocks/address-form.scss";
+</style>

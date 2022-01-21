@@ -30,3 +30,7 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import "~@/assets/scss/blocks/footer.scss";
+</style>
